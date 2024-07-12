@@ -123,49 +123,87 @@
   
   <style scoped>
 .exonomy-design {
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 40px;
+  font-family: 'Arial', sans-serif;
+  color: #e0e0e0;
+  line-height: 1.6;
+  background-color: #1a1a1a;
 }
 
 .exonomy-design h1 {
-  color: #333;
-  border-bottom: 2px solid #333;
-  padding-bottom: 10px;
-  margin-bottom: 20px;
+  color: #61dafb;
+  font-size: 2.5em;
+  border-bottom: 3px solid #61dafb;
+  padding-bottom: 15px;
+  margin-bottom: 30px;
 }
 
 .exonomy-design h2 {
-  color: #444;
-  background-color: #f0f0f0;
-  padding: 10px;
-  border-radius: 5px;
-  cursor: pointer;
+  color: #4fa8d5;
+  font-size: 1.8em;
+  background-color: #2c3e50;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.exonomy-design h2:hover {
+  background-color: #34495e;
 }
 
 .exonomy-design h3 {
-  color: #555;
-  margin-top: 15px;
-  margin-bottom: 10px;
+  color: #bdc3c7;
+  font-size: 1.4em;
+  margin-top: 25px;
+  margin-bottom: 15px;
 }
 
 .exonomy-design .section-content {
-  padding: 10px;
-  background-color: #f9f9f9;
-  border-radius: 5px;
+  padding: 20px;
+  background-color: #2c3e50;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(255,255,255,0.1);
 }
 
 .exonomy-design p {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .exonomy-design ul {
-  padding-left: 20px;
+  padding-left: 25px;
 }
 
 .exonomy-design li {
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 
+.exonomy-design a {
+  color: #61dafb;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.exonomy-design a:hover {
+  color: #4fa8d5;
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .exonomy-design {
+    padding: 20px;
+  }
+ 
+  .exonomy-design h1 {
+    font-size: 2em;
+  }
+ 
+  .exonomy-design h2 {
+    font-size: 1.5em;
+  }
+}
     </style>
   
