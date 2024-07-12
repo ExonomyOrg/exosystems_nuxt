@@ -12,7 +12,7 @@
   
   <style scoped>
   .navbar {
-    background-color: #ffffff;
+    background-color: #f8f8f8;
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -20,7 +20,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 0; /* Ensure no margin */
+    margin: 0;
     padding: 0;
   }
   
@@ -35,6 +35,7 @@
     display: flex;
     border: none;
     text-decoration: none;
+    align-items: center;
   }
   
   .navbar a {
@@ -49,7 +50,7 @@
   
   .navbar a:hover {
     background-color: #f0f0f0;
-    color: #000000;
+    color: #007bff
   }
   
   @media (max-width: 768px) {
@@ -76,6 +77,7 @@
       width: 100%;
       text-align: left;
     }
+    
   }
   </style>
   
