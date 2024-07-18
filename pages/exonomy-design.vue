@@ -64,35 +64,35 @@
       </section>
   
       <section>
-        <h2>2. Exonomy App Feature Tree</h2>
+        <h2>3. Exonomy App Feature Tree</h2>
         <p>
           Features to be included in v1.0:
           <ul>
-            <li>2.1 Exonomy (NFT) Wallet</li>
-            <li>2.2 CRUD operations</li>
-            <li>2.3 Barter and sell for cash/crypto</li>
-            <li>2.4 Voucher Market / Auction</li>
-            <li>2.5 Cost Sharing</li>
-            <li>2.6 Crowdfunding Campaigns</li>
-            <li>2.7 Exocracy Lite features (decentralized project management)</li>
-            <li>2.8 CRUD operations for CrowdFunding and CrowdSourcing</li>
+            <li>3.1 Exonomy (NFT) Wallet</li>
+            <li>3.2 CRUD operations</li>
+            <li>3.3 Barter and sell for cash/crypto</li>
+            <li>3.4 Voucher Market / Auction</li>
+            <li>3.5 Cost Sharing</li>
+            <li>3.6 Crowdfunding Campaigns</li>
+            <li>3.7 Exocracy Lite features (decentralized project management)</li>
+            <li>3.8 CRUD operations for CrowdFunding and CrowdSourcing</li>
           </ul>
         </p>
       </section>
   
       <section>
-        <h2>3. Exocracy.com Feature Tree</h2>
+        <h2>4. Exocracy.com Feature Tree</h2>
         <p>
           Hosted project management web app running on PostgreSQL with SQL REST API. Integration with Exonomy mobile app using SQLite3 for local synchronization. Offers free and paid tiers based on project size.
         </p>
         <p>
           Pricing tiers:
           <ul>
-            <li>3.1 Free tier: 1 project with up to 100 tasks</li>
-            <li>3.2 Paid tiers:
+            <li>4.1 Free tier: 1 project with up to 100 tasks</li>
+            <li>4.2 Paid tiers:
               <ul>
-                <li>3.2.1 Up to 10K tasks: $5 per month</li>
-                <li>3.2.2 Up to 100K tasks: $25 per month</li>
+                <li>4.2.1 Up to 10K tasks: $5 per month</li>
+                <li>4.2.2 Up to 100K tasks: $25 per month</li>
               </ul>
             </li>
           </ul>
@@ -221,13 +221,15 @@
           <li>
             <h3>1.1. MVP</h3>
             <ul>
-              <li>1.1.1. SocketSupply runtime</li>
+              <li><DropList title="1.1.1. SocketSupply runtime" url="https://socketsupply.co"></DropList></li>
               <li>1.1.2. Nuxt Framework</li>
               <li>1.1.3. SQLite3</li>
-              <ul>
-                <li>1.1.3.1. Drizzle ORM, SQLite and Nuxt JS- Getting Started- DEV Community</li>
-                <li>1.1.3.2. GitHub- WiseLibs/better-sqlite3: The fastest and simplest library for SQLite3 in Node.js.</li>
-              </ul>
+            </ul>
+            <ul>
+              <li>1.1.3.1. Drizzle ORM, SQLite and Nuxt JS- Getting Started- DEV Community</li>
+              <li>1.1.3.2. GitHub- WiseLibs/better-sqlite3: The fastest and simplest library for SQLite3 in Node.js.</li>
+            </ul>
+            <ul>
               <li>1.1.4. Vuetify UI theming</li>
             </ul>
           </li>
@@ -288,59 +290,146 @@
           </li>
         </ul>
       </div>
-
-    <h2>2. Exonomy app Feature Tree</h2>
-    <div class="section-content">
-      <ul>
-        <li>
-          <h3>2.1. Exonomy (NFT) Wallet</h3>
-          <ul>
-            <li>2.1.1. CRUD</li>
-            <li>2.1.2. Barter</li>
-            <li>2.1.3. Sell for cash/crypto</li>
+  
+      <h2>2. Models</h2>
+      <div class="section-content">
+        <ul>
+          <li>
+            <h3>2.1. Voucher</h3>
+            <ul>
+              <li>2.1.1. VoucherID</li>
+              <li>2.1.2. Voucher (Descriptivename)</li>
+              <li>2.1.3. Notes (Longformexplanation)</li>
+              <li>2.1.4. Author (CreatorandfirstOwner)</li>
+            <li>2.1.5. Owner (CurrentOwnerinpossession)</li>
+            <li>2.1.6. Status (Created,Sold,Redeemed)</li>
+            <li>2.1.7. FaceValue (Declaredvalueof thevoucher’sproductorservice)</li>
+            <li>2.1.8. SaleValue (Finalvalueof thevoucher’ssaletoanewowner)</li>
+            <li>2.1.9. Auction (BooleanofAuctionedstatus)</li>
           </ul>
         </li>
         <li>
-          <h3>2.2. Voucher Market / Auction</h3>
+          <h3>2.2. Campaigns</h3>
           <ul>
-            <li>2.2.1. CRUD</li>
-            <li>2.2.2. Cost Sharing</li>
-            <li>2.2.3. P2P Philanthropy and Humanitarianism</li>
+            <li>2.2.1. CampaignID</li>
+            <li>2.2.2. CampaignTitle</li>
+            <li>2.2.3. CampaignLongDescription</li>
+            <li>2.2.4. StartDate</li>
+            <li>2.2.5. EndDate</li>
+            <li>2.2.6. AuthorID</li>
+            <li>2.2.7. Delegates</li>
           </ul>
         </li>
         <li>
-          <h3>2.3. Crowdfunding Campaigns</h3>
+          <h3>2.3. Exonomists</h3>
           <ul>
-            <li>2.3.1. CRUD</li>
-            <li>2.3.2. CrowdFunding</li>
+            <li>2.3.1. ExonomistID</li>
+            <li>2.3.2. Username</li>
+            <li>2.3.3. Email</li>
+            <li>2.3.4. Created</li>
+            <li>2.3.5. Updated</li>
+          </ul>
+        </li>
+        <li>
+          <h3>2.4. Trusts</h3>
+          <ul>
+            <li>2.4.1. TrustID</li>
+            <li>2.4.2. VoucherID</li>
+            <li>2.4.3. BuyerID</li>
+            <li>2.4.4. SellerID</li>
+            <li>2.4.5. CampaignID</li>
+            <li>2.4.6. ProjectID</li>
+            <li>2.4.7. TrustTypeID</li>
+            <li>2.4.8. TrustValue</li>
+            <li>2.4.9. TrustDate</li>
+          </ul>
+        </li>
+        <li>
+          <h3>2.5. Projects</h3>
+          <ul>
+            <li>2.5.1. ProjectID</li>
+            <li>2.5.2. CreatorID</li>
+            <li>2.5.3. ProjectManagerID</li>
+            <li>2.5.4. Title</li>
+            <li>2.5.5. Description</li>
+            <li>2.5.6. Goal</li>
+            <li>2.5.7. Value</li>
+            <li>2.5.8. Status</li>
+            <li>2.5.9. Created</li>
+            <li>2.5.10. Updated</li>
+          </ul>
+        </li>
+        <li>
+          <h3>2.6. CrowdFunders</h3>
+          <ul>
+            <li>2.6.1. FunderID</li>
+            <li>2.6.2. CampaignID</li>
+            <li>2.6.3. Funds</li>
+            <li>2.6.4. Created</li>
+          </ul>
+        </li>
+        <li>
+          <h3>2.7. CrowdSourcing</h3>
+          <ul>
+            <li>2.7.1. ProviderID</li>
+            <li>2.7.2. ProjectTaskID</li>
+            <li>2.7.3. Created</li>
           </ul>
         </li>
       </ul>
     </div>
 
-    <h2>3. Exocracy.com Feature Tree</h2>
+    <h2>3. Exonomy app Feature Tree</h2>
     <div class="section-content">
       <ul>
         <li>
-          <h3>3.1. Exocracy Lite</h3>
+          <h3>3.1. Exonomy (NFT) Wallet</h3>
           <ul>
             <li>3.1.1. CRUD</li>
-            <li>3.1.2. CrowdFunding</li>
-            <li>3.1.3. CrowdSourcing</li>
+            <li>3.1.2. Barter</li>
+            <li>3.1.3. Sell for cash/crypto</li>
           </ul>
         </li>
         <li>
-          <h3>3.2. Exocracy</h3>
+          <h3>3.2. Voucher Market / Auction</h3>
           <ul>
-            <li>3.2.1. Up to 10K tasks, $5 per month</li>
-            <li>3.2.2. Up to 100K tasks, $25 per month</li>
+            <li>3.2.1. CRUD</li>
+            <li>3.2.2. Cost Sharing</li>
           </ul>
         </li>
         <li>
-          <h3>3.3. Project fees</h3>
+          <h3>3.3. Crowdfunding Campaigns</h3>
           <ul>
-            <li>3.3.1. $5 to have 3 projects</li>
-            <li>3.3.2. $25 to have 25 projects</li>
+            <li>3.3.1. CRUD</li>
+            <li>3.3.2. CrowdFunding</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <h2>4. Exocracy.com Feature Tree</h2>
+    <div class="section-content">
+      <ul>
+        <li>
+          <h3>4.1. Exocracy Lite</h3>
+          <ul>
+            <li>4.1.1. CRUD</li>
+            <li>4.1.2. CrowdFunding</li>
+            <li>4.1.3. CrowdSourcing</li>
+          </ul>
+        </li>
+        <li>
+          <h3>4.2. Exocracy</h3>
+          <ul>
+            <li>4.2.1. Up to 10K tasks, $5 per month</li>
+            <li>4.2.2. Up to 100K tasks, $25 per month</li>
+          </ul>
+        </li>
+        <li>
+          <h3>4.3. Project fees</h3>
+          <ul>
+            <li>4.3.1. $5 to have 3 projects</li>
+            <li>4.3.2. $25 to have 25 projects</li>
           </ul>
         </li>
       </ul>
@@ -349,6 +438,7 @@
 </template>
 
 <script>
+
   import Navbar from '@/components/navbar.vue'; 
   export default {
     // Optionally, you can define meta tags, head, etc.
@@ -447,3 +537,18 @@
   }
 }
     </style>
+
+
+<script setup>
+    import DropList from '~/components/DropList.vue';
+</script>
+
+<style scoped>
+.section-content ul {
+  list-style-type: none;
+  padding: 0;
+}
+.section-content li {
+  margin-bottom: 10px;
+}
+</style>

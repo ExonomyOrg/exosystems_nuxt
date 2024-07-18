@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <Navbar />
+  <Navbar />
+  <div style="margin-left: 15%; margin-top: 5% ;margin-right: 15%;">
     <h2>Volunteer Intern Information</h2>
     <p>We are delighted to extend an offer for you to join Exosystems as a Volunteer Intern. We are thrilled to have passionate and talented individuals like you to assist us in developing our pioneering applications, Exonomy and Exocracy, which are positioned to revolutionize sovereign peer-to-peer commerce and social media autonomy.</p>
     <p>At Exosystems, we envision a world without centralized control over our commercial interactions and social relationships. We are committed to building a future where each individual is the center of their own world, free from the constraints of the current corporate-driven digital landscape. Our mission is to create technology that empowers users with true sovereignty and autonomy.</p>
@@ -14,7 +14,7 @@
     <p>What We Offer is an opportunity to work on cutting-edge technology with a passionate and visionary team. You'll acquire hands-on experience in developing decentralized applications. This comes with mentorship and guidance from experienced professionals in the field and it all happens in a collaborative and inclusive work environment.</p>
     <p>Our ideal candidates have a keen interest in decentralized technologies and peer-to-peer networking. It helps to have a working understanding of software development and the Javascript programming language. Experience with additional technologies, especially those listed in the application form you’ll fill out, is also desired. Are you willingness to learn new design philosophies and contribute creatively to innovative projects. Then bring along your strong problem-solving skills and proactive attitude.</p>
     <p>We believe that your skills and enthusiasm will be a valuable addition to our team. By joining Exosystems, you will play a significant role in shaping the future of decentralized commerce and social media. Together, we can create a world where technology serves the people, and not the other way around.</p>
-    <p>If you are ready to embark on this exciting journey with us, please fill out the Google form and we’ll get back to you soon. We look forward to welcoming you to Exosystems and working together to build the future.</p>
+    <p>If you are ready to embark on this exciting journey with us, start off by reading our <NuxtLink to="/exonomy-design">Design Document</NuxtLink> and, if you're still interested, please fill out the Google form and we’ll get back to you soon. We look forward to welcoming you to Exosystems and working together to build the future.</p>
     <p>Sincerely,</p>
     <p>Tamir Halperin<br>Exonomist Executive<br>Exosystems</p>
 
