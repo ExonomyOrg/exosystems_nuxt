@@ -1,0 +1,35 @@
+name: Deploy Nuxt.js to Hostinger
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build Nuxt.js app
+      run: npm run build
+
+    - name: Deploy to Hostinger
+      uses: easingthemes/ssh-deploy@v2.1.5
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        ARGS: "-rltgoDzvO --delete"
+        SOURCE: "dist/"
+        REMOTE_HOST: "your-hostinger-server-ip"
+        REMOTE_USER: "your-hostinger-username"
+        TARGET: "/path-to-your-project-on-hostinger"
