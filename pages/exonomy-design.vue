@@ -217,7 +217,7 @@ import DropList from '~/components/DropList.vue';
               <li><DropList title="3.2. Connecting to Sqlite Database in Electron JS - (Electron & Databases)" url="https://www.youtube.com/embed/nMvjcBTFlPA/"></DropList></li>
               <li><DropList title="4. VuetifyJS" url="https://vuetifyjs.com"></DropList></li>
             </ul>
-          </li></DropList>
+          </li>
           <li>
             <h3>Community Node</h3>
             <ul>
