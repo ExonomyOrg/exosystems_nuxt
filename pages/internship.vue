@@ -21,7 +21,7 @@
     <h1>Internship Opportunities</h1>
     <p>Join our dynamic team and contribute to groundbreaking projects in decentralized technologies. We offer exciting internship positions for talented individuals:</p>
     
-    <h2>1. Full Stack Developer Intern</h2>
+    <h2> Full Stack Developer Intern</h2>
     <p>We're seeking a passionate full stack developer intern to help build our cutting-edge applications. You'll work on both front-end and back-end development, gaining invaluable experience in decentralized technologies.</p>
     <p><a href="https://forms.gle/joQVuHCTtTJFhXhW9" target="_blank" rel="noopener noreferrer" class="button">Apply Now</a></p>
     

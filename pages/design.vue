@@ -7,22 +7,22 @@
       <h1>Exonomy and Exocracy Overview</h1>
   
       <section>
-        <h2>1. Tooling</h2>
+        <h2> Tooling</h2>
         <p>
           MVP: The P2P solution for 100% decentralization, supporting persistence of peer-to-peer streaming data, resulting in an eventually consistent shared state between all peers. Peers don’t rely on the availability of original data authors due to decentralized topology.
         </p>
         <p>
           Tools:
           <ul>
-            <li>1.1 SocketSupply runtime</li>
-            <li>1.2 Nuxt Framework</li>
-            <li>1.3 SQLite3 - educational resources:
+            <li>1 SocketSupply runtime</li>
+            <li>2 Nuxt Framework</li>
+            <li>3 SQLite3 - educational resources:
               <ul>
-                <li>1.3.1 <a href="https://dev.to/aaronksaunders/drizzle-orm-sqlite-and-nuxt-js-getting-started-374m">Drizzle ORM, SQLite and Nuxt JS - Getting Started</a></li>
-                <li>1.3.2 <a href="https://github.com/WiseLibs/better-sqlite3">GitHub - WiseLibs/better-sqlite3: The fastest and simplest library for SQLite3 in Node.js.</a></li>
+                <li>3.1 <a href="https://dev.to/aaronksaunders/drizzle-orm-sqlite-and-nuxt-js-getting-started-374m">Drizzle ORM, SQLite and Nuxt JS - Getting Started</a></li>
+                <li>3.2 <a href="https://github.com/WiseLibs/better-sqlite3">GitHub - WiseLibs/better-sqlite3: The fastest and simplest library for SQLite3 in Node.js.</a></li>
               </ul>
             </li>
-            <li>1.4 Vuetify UI theming</li>
+            <li>4 Vuetify UI theming</li>
           </ul>
         </p>
       </section>
@@ -215,74 +215,74 @@
       <h1>Exosystems: Join the Future of Sovereign Peer-to-Peer Commerce and Social Media Autonomy</h1>
       <p>Exosystems invites you to join the team of developers who are building the future of sovereign peer-to-peer commerce and social media autonomy. A world awaits us without centralized control over our commercial interactions and social relationships.</p>
   
-      <h2>1. Tooling</h2>
+      <h2> Tooling</h2>
       <div class="section-content">
         <ul>
           <li>
-            <h3>1.1. MVP</h3>
+            <h3>1. MVP</h3>
             <ul>
-              <li>1.1.1. SocketSupply runtime</li>
-              <li>1.1.2. Nuxt Framework</li>
-              <li>1.1.3. SQLite3</li>
+              <li>1.1. SocketSupply runtime</li>
+              <li>1.2. Nuxt Framework</li>
+              <li>1.3. SQLite3</li>
               <ul>
-                <li>1.1.3.1. Drizzle ORM, SQLite and Nuxt JS- Getting Started- DEV Community</li>
-                <li>1.1.3.2. GitHub- WiseLibs/better-sqlite3: The fastest and simplest library for SQLite3 in Node.js.</li>
+                <li>1.3.1. Drizzle ORM, SQLite and Nuxt JS- Getting Started- DEV Community</li>
+                <li>1.3.2. GitHub- WiseLibs/better-sqlite3: The fastest and simplest library for SQLite3 in Node.js.</li>
               </ul>
-              <li>1.1.4. Vuetify UI theming</li>
+              <li>1.4. Vuetify UI theming</li>
             </ul>
           </li>
           <li>
-            <h3>1.2. Community Node</h3>
+            <h3>2. Community Node</h3>
             <ul>
-              <li>1.2.1. OrbisDB on Ceramic (IPFS/PostgreSQL)</li>
+              <li>2.1. OrbisDB on Ceramic (IPFS/PostgreSQL)</li>
             </ul>
           </li>
           <li>
-            <h3>1.3. GoViral decentralized app distribution component</h3>
+            <h3>3. GoViral decentralized app distribution component</h3>
             <ul>
-              <li>1.3.1. iOS</li>
+              <li>3.1. iOS</li>
               <ul>
-                <li>1.3.1.1. AirDrop</li>
-                <li>1.3.1.2. Third-Party Apps</li>
+                <li>3.1.1. AirDrop</li>
+                <li>3.1.2. Third-Party Apps</li>
               </ul>
-              <li>1.3.2. Android</li>
+              <li>3.2. Android</li>
               <ul>
-                <li>1.3.2.1. Nearby Share</li>
-                <li>1.3.2.2. Wi-Fi Direct</li>
+                <li>3.2.1. Nearby Share</li>
+                <li>3.2.2. Wi-Fi Direct</li>
               </ul>
-              <li>1.3.3. Linux</li>
+              <li>3.3. Linux</li>
               <ul>
-                <li>1.3.3.1. Bluetooth File Transfer</li>
-                <li>1.3.3.2. Wi-Fi Direct</li>
+                <li>3.3.1. Bluetooth File Transfer</li>
+                <li>3.3.2. Wi-Fi Direct</li>
               </ul>
-              <li>1.3.4. Windows</li>
+              <li>3.4. Windows</li>
               <ul>
-                <li>1.3.4.1. Bluetooth File Transfer</li>
-                <li>1.3.4.2. Nearby Sharing</li>
+                <li>3.4.1. Bluetooth File Transfer</li>
+                <li>3.4.2. Nearby Sharing</li>
               </ul>
-              <li>1.3.5. Mac</li>
+              <li>3.5. Mac</li>
               <ul>
-                <li>1.3.5.1. Bluetooth File Transfer</li>
-                <li>1.3.5.2. Nearby Sharing</li>
+                <li>3.5.1. Bluetooth File Transfer</li>
+                <li>3.5.2. Nearby Sharing</li>
               </ul>
-              <li>1.3.6. Cross-Platform Solutions</li>
+              <li>3.6. Cross-Platform Solutions</li>
               <ul>
-                <li>1.3.6.1. SHAREit or Xender</li>
-                <li>1.3.6.2. FTP Server Over Hotspot</li>
-                <li>1.3.6.3. QRCodeSharing</li>
+                <li>3.6.1. SHAREit or Xender</li>
+                <li>3.6.2. FTP Server Over Hotspot</li>
+                <li>3.6.3. QRCodeSharing</li>
               </ul>
             </ul>
           </li>
           <li>
-            <h3>1.4. Economic Options</h3>
+            <h3>4. Economic Options</h3>
             <ul>
-              <li>1.4.1. MetaMask (Etherium)</li>
-              <li>1.4.2. Bitcoin Cash (Bitcoin)</li>
-              <li>1.4.3. ZCash (Decentralized money)</li>
-              <li>1.4.4. Stripe (Cash/Credit)</li>
-              <li>1.4.5. WalletConnect</li>
+              <li>4.1. MetaMask (Etherium)</li>
+              <li>4.2. Bitcoin Cash (Bitcoin)</li>
+              <li>4.3. ZCash (Decentralized money)</li>
+              <li>4.4. Stripe (Cash/Credit)</li>
+              <li>4.5. WalletConnect</li>
               <ul>
-                <li>1.4.5.1. Coinbase (SDK)</li>
+                <li>4.5.1. Coinbase (SDK)</li>
               </ul>
             </ul>
           </li>

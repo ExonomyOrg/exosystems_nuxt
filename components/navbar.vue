@@ -5,7 +5,7 @@
       <nuxt-link to="/">Home</nuxt-link>
       <nuxt-link to="/contact">Contact</nuxt-link>
       <nuxt-link to="/internship">Internship</nuxt-link>
-      <nuxt-link to="/design">Design</nuxt-link>
+      <nuxt-link to="/exonomy-design">Design</nuxt-link>
     </div>
   </nav>
 </template>
