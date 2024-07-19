@@ -217,7 +217,7 @@ import DropList from '~/components/DropList.vue';
               <li><DropList title="3.2. Connecting to Sqlite Database in Electron JS - (Electron & Databases)" url="https://www.youtube.com/embed/nMvjcBTFlPA/"></DropList></li>
               <li><DropList title="4. VuetifyJS" url="https://vuetifyjs.com"></DropList></li>
             </ul>
-          </li>
+          </li></DropList>
           <li>
             <h3>Community Node</h3>
             <ul>
@@ -263,7 +263,7 @@ import DropList from '~/components/DropList.vue';
           <li>
             <h3>4. Economic Options</h3>
             <ul>
-              <li>1. MetaMask (Etherium)</li>
+              <li><DropList title="1. MetaMask (Etherium)" url="https://docs.metamask.io/wallet/concepts/wallet-api/"></DropList></li>
               <li>2. Bitcoin Cash (Bitcoin)</li>
               <li>3. ZCash (Decentralized money)</li>
               <li>4. Stripe (Cash/Credit)</li>
