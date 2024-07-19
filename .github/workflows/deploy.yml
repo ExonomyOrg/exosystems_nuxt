@@ -30,6 +30,6 @@ jobs:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         ARGS: "-rltgoDzvO --delete"
         SOURCE: "dist/"
-        REMOTE_HOST: "your-hostinger-server-ip"
-        REMOTE_USER: "your-hostinger-username"
-        TARGET: "/path-to-your-project-on-hostinger"
+        REMOTE_HOST: "91.108.107.188"
+        REMOTE_USER: "u981267717"
+        TARGET: "/public_html"
