@@ -6,98 +6,83 @@
       commerce and social media autonomy. A world awaits us without centralized control over our commercial
       interactions and social relationships.</p>
 
-      <h2> Tooling</h2>
-      <div class="section-content">
-        <ul>
-          <li>
-            <h3>MVP</h3>
+    <h2>Tooling</h2>
+    <div class="section-content">
+      <ul>
+        <li>
+          <h3>MVP</h3>
+          <ul>
+            <li><DropList title="1. SocketSupply runtime" url="https://socketsupply.co"></DropList></li>
+            <li><DropList title="2. Nuxt Framework" url="https://nuxt.com"></DropList></li>
+            <li><DropList title="3. SQLite3" url="https://www.sqlite.org/"></DropList></li>
+            <li><DropList title="3.1. Drizzle ORM, SQLite and Nuxt JS- Getting Started- DEV Community" url="https://www.youtube.com/embed/g6MDN9To9K4/"></DropList></li>
+            <li><DropList title="3.2. Connecting to Sqlite Database in Electron JS - (Electron & Databases)" url="https://www.youtube.com/embed/nMvjcBTFlPA/"></DropList></li>
+            <li><DropList title="4. VuetifyJS" url="https://vuetifyjs.com"></DropList></li>
+          </ul>
+        </li>
+        <li>
+          <h3>Community Node</h3>
+          <ul>
+            <li><DropList title="OrbisDB on Ceramic (IPFS/PostgreSQL)" url="https://developers.ceramic.network/docs/introduction/intro"></DropList></li>
+          </ul>
+        </li>
+        <li>
+          <h3>GoViral decentralized app distribution component</h3>
+          <ul>
+            <li>1. iOS</li>
             <ul>
-              <li><DropList title="1. SocketSupply runtime" url="https://socketsupply.co"></DropList></li>
-              <li><DropList title="2. Nuxt Framework" url="https://nuxt.com"></DropList></li>
-              <li><DropList title="3. SQLite3" url="https://www.sqlite.org/"></DropList></li>
-              <li><DropList title="3.1. Drizzle ORM, SQLite and Nuxt JS- Getting Started- DEV Community" url="https://www.youtube.com/embed/g6MDN9To9K4/"></DropList></li>
-              <li><DropList title="3.2. Connecting to Sqlite Database in Electron JS - (Electron & Databases)" url="https://www.youtube.com/embed/nMvjcBTFlPA/"></DropList></li>
-              <li><DropList title="4. VuetifyJS" url="https://vuetifyjs.com"></DropList></li>
+              <li>1.1. AirDrop</li>
+              <li>1.2. Third-Party Apps</li>
             </ul>
-          </li>
-          <li>
-            <h3>Community Node</h3>
+            <li>2. Android</li>
             <ul>
-              <li><DropList title="OrbisDB on Ceramic (IPFS/PostgreSQL)" url="https://developers.ceramic.network/docs/introduction/intro"></DropList></li>
+              <li>2.1. Nearby Share</li>
+              <li>2.2. Wi-Fi Direct</li>
             </ul>
-          </li>
-          <li>
-            <h3>GoViral decentralized app distribution component</h3>
+            <li>3. Linux</li>
             <ul>
-              <li>1. iOS</li>
-              <ul>
-                <li>1.1. AirDrop</li>
-                <li>1.2. Third-Party Apps</li>
-              </ul>
-              <li>2. Android</li>
-              <ul>
-                <li>2.1. Nearby Share</li>
-                <li>2.2. Wi-Fi Direct</li>
-              </ul>
-              <li>3. Linux</li>
-              <ul>
-                <li>3.1. Bluetooth File Transfer</li>
-                <li>3.2. Wi-Fi Direct</li>
-              </ul>
-              <li>4. Windows</li>
-              <ul>
-                <li>4.1. Bluetooth File Transfer</li>
-                <li>4.2. Nearby Sharing</li>
-              </ul>
-              <li>5. Mac</li>
-              <ul>
-                <li>5.1. Bluetooth File Transfer</li>
-                <li>5.2. Nearby Sharing</li>
-              </ul>
-              <li>6. Cross-Platform Solutions</li>
-              <ul>
-                <li>6.1. SHAREit or Xender</li>
-                <li>6.2. FTP Server Over Hotspot</li>
-                <li>6.3. QRCodeSharing</li>
-              </ul>
+              <li>3.1. Bluetooth File Transfer</li>
+              <li>3.2. Wi-Fi Direct</li>
             </ul>
-          </li>
-          <li>
-            <h3>4. Economic Options</h3>
+            <li>4. Windows</li>
             <ul>
-              <li><DropList title="1. MetaMask (Etherium)" url="https://docs.metamask.io/wallet/concepts/wallet-api/"></DropList></li>
-              <li>2. Bitcoin Cash (Bitcoin)</li>
-              <li>3. ZCash (Decentralized money)</li>
-              <li>4. Stripe (Cash/Credit)</li>
-              <li>5. WalletConnect</li>
-              <ul>
-                <li>5.1. Coinbase (SDK)</li>
-              </ul>
+              <li>4.1. Bluetooth File Transfer</li>
+              <li>4.2. Nearby Sharing</li>
             </ul>
-          </li>
-        </ul>
-      </div>
+            <li>5. Mac</li>
+            <ul>
+              <li>5.1. Bluetooth File Transfer</li>
+              <li>5.2. Nearby Sharing</li>
+            </ul>
+            <li>6. Cross-Platform Solutions</li>
+            <ul>
+              <li>6.1. SHAREit or Xender</li>
+              <li>6.2. FTP Server Over Hotspot</li>
+              <li>6.3. QRCodeSharing</li>
+            </ul>
+          </ul>
+        </li>
+        <li>
+          <h3>4. Economic Options</h3>
+          <ul>
+            <li><DropList title="1. MetaMask (Etherium)" url="https://docs.metamask.io/wallet/concepts/wallet-api/"></DropList></li>
+            <li>2. Bitcoin Cash (Bitcoin)</li>
+            <li>3. ZCash (Decentralized money)</li>
+            <li>4. Stripe (Cash/Credit)</li>
+            <li>5. WalletConnect</li>
+            <ul>
+              <li>5.1. Coinbase (SDK)</li>
+            </ul>
+          </ul>
+        </li>
+      </ul>
+    </div>
   </div>
-<script>
-
-  import Navbar from '@/components/navbar.vue'; 
-  export default {
-    // Optionally, you can define meta tags, head, etc.
-    head() {
-      return {
-        title: 'Exonomy and Exocracy Overview - ExoSystems',
-        meta: [
-          { hid: 'description', name: 'description', content: 'Overview of Exonomy and Exocracy projects at ExoSystems, detailing tooling, models, and features.' }
-        ]
-      };
-    }
-  }
-  </script>
-  
 </template>
 
 <script setup>
-  import DropList from '~/components/DropList.vue';
+import Navbar from '@/components/navbar.vue';
+import DropList from '~/components/DropList.vue';
 </script>
 
 <style scoped>
