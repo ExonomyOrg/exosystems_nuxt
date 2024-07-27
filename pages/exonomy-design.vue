@@ -77,7 +77,7 @@
           </li>
         </ul>
       </div>
-
+  </div>
 <script>
 
   import Navbar from '@/components/navbar.vue'; 
