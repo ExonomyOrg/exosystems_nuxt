@@ -21,7 +21,7 @@
           </ul>
         </li>
         <li>
-          <h3>Community Node</h3>
+          <h3>Community Nodes</h3>
           <ul>
             <li><DropList title="OrbisDB on Ceramic (IPFS/PostgreSQL)" url="https://developers.ceramic.network/docs/introduction/intro"></DropList></li>
           </ul>
