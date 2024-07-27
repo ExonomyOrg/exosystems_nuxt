@@ -15,8 +15,12 @@
             <li><DropList title="1. SocketSupply runtime" url="https://socketsupply.co"></DropList></li>
             <li><DropList title="2. Nuxt Framework" url="https://nuxt.com"></DropList></li>
             <li><DropList title="3. SQLite3" url="https://www.sqlite.org/"></DropList></li>
-            <li><DropList title="3.1. Drizzle ORM, SQLite and Nuxt JS- Getting Started- DEV Community" url="https://www.youtube.com/embed/g6MDN9To9K4/"></DropList></li>
-            <li><DropList title="3.2. Connecting to Sqlite Database in Electron JS - (Electron & Databases)" url="https://www.youtube.com/embed/nMvjcBTFlPA/"></DropList></li>
+            <li>
+              <DropList title="3.1. Drizzle ORM, SQLite and Nuxt JS- Getting Started- DEV Community" url="https://www.youtube.com/embed/g6MDN9To9K4/"></DropList>
+            </li>
+            <li>
+              <DropList title="3.2. Connecting to Sqlite Database in Electron JS - (Electron & Databases)" url="https://www.youtube.com/embed/nMvjcBTFlPA/"></DropList>
+            </li>
             <li><DropList title="4. VuetifyJS" url="https://vuetifyjs.com"></DropList></li>
           </ul>
         </li>
@@ -86,6 +90,32 @@ import DropList from '~/components/DropList.vue';
 </script>
 
 <style scoped>
+
+/* Remove default list styling */
+.section-content ul {
+  list-style-type: none; /* Remove default bullets or numbers */
+  margin: 0;
+  padding: 0;
+}
+
+.section-content li {
+  margin-bottom: 10px;
+}
+
+/* Indent nested lists */
+.section-content ul ul {
+  margin-left: 20px; /* Indentation for first level of nested lists */
+}
+
+.section-content ul ul ul {
+  margin-left: 40px; /* Further indentation for deeper nested lists */
+}
+
+/* Optional: Additional styling for DropList component */
+.DropList {
+  margin: 5px 0;
+}
+
 .exonomy-design {
   max-width: 1000px;
   margin: 0 auto;
