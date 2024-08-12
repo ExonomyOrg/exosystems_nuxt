@@ -1,7 +1,7 @@
 <template>
   <Navbar />
   <div style="margin-left: 15%; margin-top: 5% ;margin-right: 15%;">
-    <h2>Volunteer Interns Information</h2>
+    <h2>Volunteer Intern Information</h2>
     <p>We are delighted to extend an offer for you to join Exosystems as a Volunteer Intern. We are thrilled to have passionate and talented individuals like you to assist us in developing our pioneering applications, Exonomy and Exocracy, which are positioned to revolutionize sovereign peer-to-peer commerce and social media autonomy.</p>
     <p>At Exosystems, we envision a world without centralized control over our commercial interactions and social relationships. We are committed to building a future where each individual is the center of their own world, free from the constraints of the current corporate-driven digital landscape. Our mission is to create technology that empowers users with true sovereignty and autonomy.</p>
     <p>About Exosystems:</p>
