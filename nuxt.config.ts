@@ -15,5 +15,14 @@ export default defineNuxtConfig({
   css: [
     '@/assets/global.css'
   ],
+  plugins:[
+    '@/layers/auth/plugins/vue3-google-signin.ts',
+  ],
+  runtimeConfig: {
+    private: {
+      databasePath: process.env.DATABASE_PATH || './dev.db',
+      // Add other private config here
+    },
+  },
   compatibilityDate: '2024-07-12'
 });
