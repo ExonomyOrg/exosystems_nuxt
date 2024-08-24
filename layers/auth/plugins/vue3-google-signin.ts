@@ -3,6 +3,6 @@ import googleSignIn  from 'vue3-google-signin'
 
 export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.use(googleSignIn, {
-    clientId: 'YOUR_ACTUAL_CLIENT_ID_FROM_GOOGLE_CONSOLE', // Replace with your actual client ID
+    clientId: '625192695272-fploh19ppqhqbta1nnsadn3gug6fi5hr.apps.googleusercontent.com', // Replace with your actual client ID
   })
 })
