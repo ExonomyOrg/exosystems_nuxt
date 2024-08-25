@@ -2,8 +2,11 @@ import { defineNuxtConfig } from 'nuxt/config'
 
 export default defineNuxtConfig({
   modules: [
-    'nuxt-vue3-google-signin'
+    'nuxt-vue3-google-signin',
   ],
+  googleSignIn: {
+    clientId: '625192695272-fploh19ppqhqbta1nnsadn3gug6fi5hr.apps.googleusercontent.com',
+  },
   app: {
     head: {
       title: 'Exosystems',
@@ -14,9 +17,6 @@ export default defineNuxtConfig({
   },
   css: [
     '@/assets/global.css'
-  ],
-  plugins:[
-    '@/layers/auth/plugins/vue3-google-signin.ts',
   ],
   runtimeConfig: {
     private: {

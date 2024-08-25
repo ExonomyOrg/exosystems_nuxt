@@ -14,11 +14,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import Navbar from '@/components/navbar.vue'; 
-import {
-  GoogleSignInButton,
-  type CredentialResponse,
-} from "vue3-google-signin";
+import Navbar from '@/components/navbar.vue';
+import { GoogleSignInButton, type CredentialResponse } from "vue3-google-signin";
 
 export default defineComponent({
   components: {
@@ -26,9 +23,27 @@ export default defineComponent({
     GoogleSignInButton,
   },
   methods: {
-    handleLoginSuccess(response: CredentialResponse) {
+    async handleLoginSuccess(response: CredentialResponse) {
       const { credential } = response;
       console.log("Access Token", credential);
+
+      // Call the server-side API route
+      try {
+        const res = await fetch('/api/auth', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ credential, provider: 'google' }),
+        });
+        if (res.ok) {
+          console.log('Authentication successful');
+        } else {
+          console.error('Authentication failed');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
     },
     handleLoginError() {
       console.error("Login failed");
@@ -44,6 +59,7 @@ export default defineComponent({
   }
 });
 </script>
+
 
 <style scoped>
 /* Your scoped styles here */

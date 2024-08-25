@@ -1,10 +1,9 @@
-// Example usage for Google Auth
-
 import { googleAdapter } from '@/layers/auth/providers/oauth/google';
-import { useDb } from '@/layers/storage/databases/sql/useDb';
+import { useDb } from '~/server/useDb';
 import { githubAdapter } from '@/layers/auth/providers/oauth/github';
 import { metamaskAdapter } from '@/layers/auth/providers/oauth/metamask';
-async function handleAuthCallback(authData: any, provider: string) {
+
+export async function handleAuthCallback(authData: any, provider: string) {
   let user;
   
   switch (provider) {
@@ -22,5 +21,5 @@ async function handleAuthCallback(authData: any, provider: string) {
   }
   
   // Store the user data in the database
-  await useDb(user.username,user.useremail,user.userid);
+  await useDb(user.username, user.useremail, user.userid);
 }
