@@ -10,8 +10,8 @@ interface GitHubAuthData {
 
 export function githubAdapter(authData: GitHubAuthData): User {
   return {
-    username: authData.login,
-    useremail: authData.email,
-    userid: authData.id.toString(), // Ensure ID is a string
+    username: authData.login || '',
+    useremail: authData.email|| '',
+    userid: authData.id.toString() || '', // Ensure ID is a string
   };
 }

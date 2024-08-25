@@ -1,6 +1,3 @@
-
-
-
 import sqlite3 from 'sqlite3';
 import { open } from 'sqlite';
 
@@ -12,6 +9,11 @@ const dbPromise = open({
 
 // Define the function to check and insert user information
 export async function useDb(username: string, useremail: string, userid: string) {
+  // Validate input
+  if (!username || !useremail || !userid) {
+    throw new Error('Invalid user data provided. Ensure all fields are filled.');
+  }
+
   const db = await dbPromise;
 
   // Check if the user already exists
@@ -25,4 +27,5 @@ export async function useDb(username: string, useremail: string, userid: string)
     console.log('User already exists');
   }
 }
+
 

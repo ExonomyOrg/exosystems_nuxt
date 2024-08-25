@@ -1,7 +1,4 @@
-
-// layers/auth/providers/oauth/google.ts
-
-import {  type User } from '~/layers/auth/composables/userType';
+import { type User } from '~/layers/auth/composables/userType';
 
 interface GoogleAuthData {
   name: string;
@@ -9,10 +6,12 @@ interface GoogleAuthData {
   sub: string; // Google user ID
 }
 
-export function googleAdapter(authData: GoogleAuthData): User {
+export function googleAdapter(authData: any): User {
+  console.log('Google Adapter received data:', authData); // Debugging
   return {
-    username: authData.name,
-    useremail: authData.email,
-    userid: authData.sub,
+    username: authData.username || ' ',
+    useremail: authData.useremail || ' ',
+    userid: authData.userid || ' ',
   };
 }
+
