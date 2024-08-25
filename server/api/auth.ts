@@ -6,7 +6,7 @@ import { verifyGithubToken } from '~/server/auth/githubAuth';
 import { verifyMetaMaskToken } from '~/server/auth/metamaskAuth';
 
 // Create an OAuth2 client with the Google client ID
-const googleClient = new OAuth2Client('72780742121-4j4tl98s5g99fmmcneked3d1pdnn7p9l.apps.googleusercontent.com');
+const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 export default defineEventHandler(async (event) => {
   await initDB(); // Ensure DB is initialized
@@ -45,7 +45,7 @@ export default defineEventHandler(async (event) => {
 async function handleGoogleAuth(idToken: string) {
   const ticket = await googleClient.verifyIdToken({
     idToken,
-    audience: '72780742121-4j4tl98s5g99fmmcneked3d1pdnn7p9l.apps.googleusercontent.com',
+    audience: process.env.GOOGLE_CLIENT_ID,
   });
   const payload = ticket.getPayload();
 

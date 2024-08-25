@@ -5,7 +5,7 @@ export default defineNuxtConfig({
     'nuxt-vue3-google-signin',
   ],
   googleSignIn: {
-    clientId: '72780742121-4j4tl98s5g99fmmcneked3d1pdnn7p9l.apps.googleusercontent.com',
+    clientId: process.env.GOOGLE_CLIENT_ID,
   },
   app: {
     head: {
