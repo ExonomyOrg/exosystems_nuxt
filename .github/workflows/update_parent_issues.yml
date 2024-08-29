@@ -55,14 +55,14 @@ jobs:
             if echo "$PARENT_DESCRIPTION" | grep -q "Children:"; then
               UPDATED_DESCRIPTION=$(echo "$PARENT_DESCRIPTION" | sed "/^Children:/d")
             else
-              UPDATED_DESCRIPTION=$PARENT_DESCRIPTION
+              UPDATED_DESCRIPTION="$PARENT_DESCRIPTION"
             fi
 
             # Add the current child issue to the list of children
             CHILDREN_LINE="Children: $(gh issue view $PARENT_ID --json body -q .body | grep -oP 'Children:\s*#[0-9, ]+' | sed 's/Children: //g') #$ISSUE_NUMBER"
 
-            # Insert the new Children line at the top of the description
-            UPDATED_DESCRIPTION="Children: $CHILDREN_LINE\n\n$UPDATED_DESCRIPTION"
+            # Use `echo -e` to handle newlines correctly
+            UPDATED_DESCRIPTION=$(echo -e "Children: $CHILDREN_LINE\n\n$UPDATED_DESCRIPTION")
 
             # Update the parent issue with the new description
             gh issue edit $PARENT_ID --body "$UPDATED_DESCRIPTION"
