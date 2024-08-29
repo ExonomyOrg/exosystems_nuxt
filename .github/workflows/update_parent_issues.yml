@@ -31,14 +31,17 @@ jobs:
 
       - name: Update Parent Issues
         run: |
+          set -e
+
           ISSUE_NUMBER=${{ github.event.issue.number }}
           REPO=${{ github.repository }}
 
-          # Fetch the issue body to find the Parents line
+          # Fetch the issue body
           BODY=$(gh issue view $ISSUE_NUMBER --json body -q .body)
 
           # Extract the "Parents:" line from the body
           PARENTS_LINE=$(echo "$BODY" | grep -oP 'Parents:\s*#[0-9, ]+')
+
           if [ -z "$PARENTS_LINE" ]; then
             echo "No Parents found, exiting."
             exit 0
@@ -51,18 +54,14 @@ jobs:
           for PARENT_ID in $PARENT_IDS; do
             PARENT_DESCRIPTION=$(gh issue view $PARENT_ID --json body -q .body)
 
-            # Check if "Children:" already exists, if so, update it
-            if echo "$PARENT_DESCRIPTION" | grep -q "Children:"; then
-              UPDATED_DESCRIPTION=$(echo "$PARENT_DESCRIPTION" | sed "/^Children:/d")
-            else
-              UPDATED_DESCRIPTION="$PARENT_DESCRIPTION"
-            fi
+            # Remove any existing "Children:" line
+            UPDATED_DESCRIPTION=$(echo "$PARENT_DESCRIPTION" | sed '/^Children:/d')
 
             # Add the current child issue to the list of children
-            CHILDREN_LINE="Children: $(gh issue view $PARENT_ID --json body -q .body | grep -oP 'Children:\s*#[0-9, ]+' | sed 's/Children: //g') #$ISSUE_NUMBER"
+            CHILDREN_LINE="Children: $(echo "$UPDATED_DESCRIPTION" | grep -oP 'Children:\s*#[0-9, ]+' | sed 's/Children: //g') #$ISSUE_NUMBER"
 
-            # Use `echo -e` to handle newlines correctly
-            UPDATED_DESCRIPTION=$(echo -e "Children: $CHILDREN_LINE\n\n$UPDATED_DESCRIPTION")
+            # Append the new Children line to the description
+            UPDATED_DESCRIPTION="Children: $CHILDREN_LINE\n\n$UPDATED_DESCRIPTION"
 
             # Update the parent issue with the new description
             gh issue edit $PARENT_ID --body "$UPDATED_DESCRIPTION"
