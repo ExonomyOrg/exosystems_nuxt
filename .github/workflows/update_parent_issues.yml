@@ -54,14 +54,14 @@ jobs:
             # Fetch the current parent issue description
             PARENT_DESCRIPTION=$(gh issue view $PARENT_ID --json body -q .body)
 
+            # Clear out old Children list if it exists
+            UPDATED_DESCRIPTION=$(echo "$PARENT_DESCRIPTION" | sed '/^Children:/,/^$/d')
+
             # Fetch all child issues that reference this specific parent ID
-            CHILD_ISSUES=$(gh issue list --repo $REPO --search "Parents: #$PARENT_ID" --json number,title,comments --jq '.[] | [.number, .title] | @tsv')
+            CHILD_ISSUES=$(gh issue list --repo $REPO --search "Parents: #$PARENT_ID" --json number,title,comments --jq '.[] | [.number, .title, .comments] | @tsv')
 
-            # Format the child issues as a list
-            CHILDREN_LIST=$(echo "$CHILD_ISSUES" | awk '{printf "- [%s](https://github.com/'$REPO'/issues/%s)\n", $2, $1}')
-
-            # Check if "Children:" already exists, if so, remove it
-            UPDATED_DESCRIPTION=$(echo "$PARENT_DESCRIPTION" | sed '/^Children:/d')
+            # Sort the child issues by the number of comments (descending) and take the top 5
+            CHILDREN_LIST=$(echo "$CHILD_ISSUES" | sort -r -k3 | head -n 5 | awk '{printf "- [%s](https://github.com/'$REPO'/issues/%s)\n", $2, $1}')
 
             # Insert the new Children line at the top of the description
             FINAL_DESCRIPTION=$(echo -e "Children:\n$CHILDREN_LIST\n\n$UPDATED_DESCRIPTION")
