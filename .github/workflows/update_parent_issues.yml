@@ -39,11 +39,11 @@ jobs:
           # Fetch the issue body
           BODY=$(gh issue view $ISSUE_NUMBER --json body -q .body)
 
-          # Extract the "Parents:" line from the body
-          PARENTS_LINE=$(echo "$BODY" | grep -oP 'Parents:\s*#[0-9, ]+')
+          # Extract the "Parents:" line from the body, excluding quoted lines
+          PARENTS_LINE=$(echo "$BODY" | grep -oP '^(?!.*\").*Parents:\s*#[0-9, ]+')
 
           if [ -z "$PARENTS_LINE" ]; then
-            echo "No Parents found, exiting."
+            echo "No Parents found for #$ISSUE_NUMBER, exiting."
             exit 0
           fi
 
@@ -54,11 +54,11 @@ jobs:
             # Fetch the current parent issue description
             PARENT_DESCRIPTION=$(gh issue view $PARENT_ID --json body -q .body)
 
-            # Fetch all child issues with "Parents: #PARENT_ID"
+            # Fetch all child issues that reference this specific parent ID
             CHILD_ISSUES=$(gh issue list --repo $REPO --search "Parents: #$PARENT_ID" --json number,title,comments --jq '.[] | [.number, .title] | @tsv')
 
             # Format the child issues as a list
-            CHILDREN_LIST=$(echo "$CHILD_ISSUES" | awk '{printf "- [%s #%s](%s)\n", $2, $1, $1}')
+            CHILDREN_LIST=$(echo "$CHILD_ISSUES" | awk '{printf "- [%s](https://github.com/'$REPO'/issues/%s)\n", $2, $1}')
 
             # Check if "Children:" already exists, if so, remove it
             UPDATED_DESCRIPTION=$(echo "$PARENT_DESCRIPTION" | sed '/^Children:/d')
