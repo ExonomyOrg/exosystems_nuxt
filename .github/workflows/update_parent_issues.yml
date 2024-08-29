@@ -52,19 +52,23 @@ jobs:
 
           # Loop through each parent to update its description with child issues
           for PARENT_ID in $PARENT_IDS; do
+            # Fetch the current description
             PARENT_DESCRIPTION=$(gh issue view $PARENT_ID --json body -q .body)
 
-            # Remove any existing "Children:" line
+            # Remove existing "Children:" line if it exists
             UPDATED_DESCRIPTION=$(echo "$PARENT_DESCRIPTION" | sed '/^Children:/d')
 
-            # Add the current child issue to the list of children
-            CHILDREN_LINE="Children: $(echo "$UPDATED_DESCRIPTION" | grep -oP 'Children:\s*#[0-9, ]+' | sed 's/Children: //g') #$ISSUE_NUMBER"
+            # Collect existing child issues
+            EXISTING_CHILDREN=$(echo "$UPDATED_DESCRIPTION" | grep -oP 'Children:\s*#[0-9, ]*' | sed 's/Children:\s*//')
 
-            # Append the new Children line to the description
-            UPDATED_DESCRIPTION="Children: $CHILDREN_LINE\n\n$UPDATED_DESCRIPTION"
+            # Construct the new children line
+            CHILDREN_LINE="Children: $(echo "$EXISTING_CHILDREN #$ISSUE_NUMBER" | tr -s ' ' | sed 's/ #/\n#/g')"
+
+            # Append the new "Children:" line at the beginning
+            FINAL_DESCRIPTION="${CHILDREN_LINE}\n\n${UPDATED_DESCRIPTION}"
 
             # Update the parent issue with the new description
-            gh issue edit $PARENT_ID --body "$UPDATED_DESCRIPTION"
+            gh issue edit $PARENT_ID --body "$FINAL_DESCRIPTION"
           done
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
