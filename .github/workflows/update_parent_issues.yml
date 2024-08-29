@@ -62,10 +62,10 @@ jobs:
             EXISTING_CHILDREN=$(echo "$UPDATED_DESCRIPTION" | grep -oP 'Children:\s*#[0-9, ]*' | sed 's/Children:\s*//')
 
             # Construct the new children line
-            CHILDREN_LINE="Children: $(echo "$EXISTING_CHILDREN #$ISSUE_NUMBER" | tr -s ' ' | sed 's/ #/\n#/g')"
+            CHILDREN_LINE="Children: $(echo "$EXISTING_CHILDREN #$ISSUE_NUMBER" | tr -s ' ' | sed 's/^ //; s/ /, /g')"
 
-            # Append the new "Children:" line at the beginning
-            FINAL_DESCRIPTION="${CHILDREN_LINE}\n\n${UPDATED_DESCRIPTION}"
+            # Ensure there's a newline after the "Children:" line and before the rest of the description
+            FINAL_DESCRIPTION=$(echo -e "${CHILDREN_LINE}\n\n${UPDATED_DESCRIPTION}")
 
             # Update the parent issue with the new description
             gh issue edit $PARENT_ID --body "$FINAL_DESCRIPTION"
