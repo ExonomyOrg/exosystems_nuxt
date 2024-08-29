@@ -54,11 +54,11 @@ jobs:
             # Fetch the current parent issue description
             PARENT_DESCRIPTION=$(gh issue view $PARENT_ID --json body -q .body)
 
-            # Fetch all child issues with "Parents: #PARENT_ID" and sort by comment count
-            CHILD_ISSUES=$(gh issue list --repo $REPO --search "Parents: #$PARENT_ID" --json number,title,comments --jq '.[] | "\(.title) #\(.number) - \(.comments) comments"' | sort -k4 -r | head -n 5)
+            # Fetch all child issues with "Parents: #PARENT_ID"
+            CHILD_ISSUES=$(gh issue list --repo $REPO --search "Parents: #$PARENT_ID" --json number,title,comments --jq '.[] | [.number, .title] | @tsv')
 
-            # Create the new children list
-            CHILDREN_LIST=$(echo "$CHILD_ISSUES" | awk -F ' - ' '{print "- [" $2 "](" $1 ")"}')
+            # Format the child issues as a list
+            CHILDREN_LIST=$(echo "$CHILD_ISSUES" | awk '{printf "- [%s #%s](%s)\n", $2, $1, $1}')
 
             # Check if "Children:" already exists, if so, remove it
             UPDATED_DESCRIPTION=$(echo "$PARENT_DESCRIPTION" | sed '/^Children:/d')
