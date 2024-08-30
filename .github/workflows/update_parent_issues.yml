@@ -36,28 +36,33 @@ jobs:
           ISSUE_NUMBER=${{ github.event.issue.number }}
           REPO=${{ github.repository }}
 
-          # Fetch the issue body
+          echo "Fetching issue body for issue #$ISSUE_NUMBER"
           BODY=$(gh issue view $ISSUE_NUMBER --json body -q .body)
+          echo "Issue body: $BODY"
 
-          # Extract the "Parents:" line from the body, excluding quoted lines
+          echo "Extracting parent issues"
           PARENTS_LINE=$(echo "$BODY" | grep -oP 'Parents:\s*#[0-9, ]+')
+          echo "Parents line: $PARENTS_LINE"
 
           if [ -z "$PARENTS_LINE" ]; then
             echo "No Parents found for #$ISSUE_NUMBER, exiting."
             exit 0
           fi
 
-          # Extract parent issue numbers
           PARENT_IDS=$(echo "$PARENTS_LINE" | grep -oP '#\d+' | grep -oP '\d+')
+          echo "Parent IDs: $PARENT_IDS"
 
           for PARENT_ID in $PARENT_IDS; do
-            # Fetch the current parent issue description
+            echo "Processing parent #$PARENT_ID"
+
             PARENT_DESCRIPTION=$(gh issue view $PARENT_ID --json body -q .body)
+            echo "Parent issue description: $PARENT_DESCRIPTION"
 
             # Clear out old Children list if it exists
             UPDATED_DESCRIPTION=$(echo "$PARENT_DESCRIPTION" | sed '/^Children:/,/^$/d')
+            echo "Updated description after clearing Children: $UPDATED_DESCRIPTION"
 
-            # Fetch all child issues that reference this specific parent ID
+            # Fetch all child issues
             CHILD_ISSUES=$(gh issue list --repo $REPO --json number,title,body,comments | jq --arg parent_id "#$PARENT_ID" '
               .[] | select(.body | contains($parent_id)) | {
                 number: .number,
@@ -65,20 +70,21 @@ jobs:
                 comments: .comments
               }
             ')
+            echo "Child issues: $CHILD_ISSUES"
 
-            # Check if CHILD_ISSUES is not empty before processing
             if [ -z "$CHILD_ISSUES" ]; then
               echo "No child issues found for parent #$PARENT_ID."
               continue
             fi
 
-            # Sort the child issues by the number of comments (descending) and take the top 5
+            # Sort child issues and format them
             CHILDREN_LIST=$(echo "$CHILD_ISSUES" | jq -r '
               sort_by(-.comments) | .[:5] | map("- [" + .title + "](https://github.com/'$REPO'/issues/" + (.number|tostring) + ")") | join("\n")
             ')
+            echo "Children list: $CHILDREN_LIST"
 
-            # Insert the new Children line at the top of the description
             FINAL_DESCRIPTION=$(echo -e "Children:\n$CHILDREN_LIST\n\n$UPDATED_DESCRIPTION")
+            echo "Final description: $FINAL_DESCRIPTION"
 
             # Update the parent issue with the new description
             gh issue edit $PARENT_ID --body "$FINAL_DESCRIPTION"
