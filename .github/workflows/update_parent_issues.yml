@@ -21,7 +21,7 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Install GitHub CLI
+      - name: Install GitHub CLI and jq
         run: |
           sudo apt-get update
           sudo apt-get install -y gh jq
@@ -40,7 +40,7 @@ jobs:
           BODY=$(gh issue view $ISSUE_NUMBER --json body -q .body)
 
           # Extract the "Parents:" line from the body, excluding quoted lines
-          PARENTS_LINE=$(echo "$BODY" | grep -oP '^(?!.*\").*Parents:\s*#[0-9, ]+')
+          PARENTS_LINE=$(echo "$BODY" | grep -oP 'Parents:\s*#[0-9, ]+')
 
           if [ -z "$PARENTS_LINE" ]; then
             echo "No Parents found for #$ISSUE_NUMBER, exiting."
@@ -58,8 +58,8 @@ jobs:
             UPDATED_DESCRIPTION=$(echo "$PARENT_DESCRIPTION" | sed '/^Children:/,/^$/d')
 
             # Fetch all child issues that reference this specific parent ID
-            CHILD_ISSUES=$(gh issue list --repo $REPO --json number,title,comments | jq --arg parent_id "#$PARENT_ID" '
-              .[] | select(.body and contains($parent_id)) | {
+            CHILD_ISSUES=$(gh issue list --repo $REPO --json number,title,body,comments | jq --arg parent_id "#$PARENT_ID" '
+              .[] | select(.body | contains($parent_id)) | {
                 number: .number,
                 title: .title,
                 comments: .comments
