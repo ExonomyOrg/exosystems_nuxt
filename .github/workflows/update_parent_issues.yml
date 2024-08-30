@@ -58,10 +58,10 @@ jobs:
             UPDATED_DESCRIPTION=$(echo "$PARENT_DESCRIPTION" | sed '/^Children:/,/^$/d')
 
             # Fetch all child issues that reference this specific parent ID
-            CHILD_ISSUES=$(gh issue list --repo $REPO --search "Parents: #$PARENT_ID" --json number,title,comments)
+            CHILD_ISSUES=$(gh issue list --repo $REPO --json number,title,comments --jq ".[] | select(.body | test(\"Parents: #$PARENT_ID\")) | {number, title, comments}")
 
             # Sort the child issues by the number of comments (descending) and take the top 5
-            CHILDREN_LIST=$(echo "$CHILD_ISSUES" | jq -r '.[] | "\(.comments) \(.number) \(.title)"' | sort -r -k1 | head -n 5 | awk '{print "- [" $3 "](https://github.com/'$REPO'/issues/" $2 ")"}')
+            CHILDREN_LIST=$(echo "$CHILD_ISSUES" | jq -r 'sort_by(-.comments) | .[:5] | map("- [" + .title + "](https://github.com/'$REPO'/issues/" + (.number|tostring) + ")") | join("\n")')
 
             # Insert the new Children line at the top of the description
             FINAL_DESCRIPTION=$(echo -e "Children:\n$CHILDREN_LIST\n\n$UPDATED_DESCRIPTION")
