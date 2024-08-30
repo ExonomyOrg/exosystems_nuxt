@@ -24,7 +24,7 @@ jobs:
       - name: Install GitHub CLI
         run: |
           sudo apt-get update
-          sudo apt-get install -y gh
+          sudo apt-get install -y gh jq
 
       - name: Authenticate with GitHub CLI
         run: gh auth login --with-token <<< ${{ secrets.GITHUB_TOKEN }}
@@ -58,10 +58,24 @@ jobs:
             UPDATED_DESCRIPTION=$(echo "$PARENT_DESCRIPTION" | sed '/^Children:/,/^$/d')
 
             # Fetch all child issues that reference this specific parent ID
-            CHILD_ISSUES=$(gh issue list --repo $REPO --json number,title,comments --jq ".[] | select(.body | test(\"Parents: #$PARENT_ID\")) | {number, title, comments}")
+            CHILD_ISSUES=$(gh issue list --repo $REPO --json number,title,comments | jq --arg parent_id "#$PARENT_ID" '
+              .[] | select(.body and contains($parent_id)) | {
+                number: .number,
+                title: .title,
+                comments: .comments
+              }
+            ')
+
+            # Check if CHILD_ISSUES is not empty before processing
+            if [ -z "$CHILD_ISSUES" ]; then
+              echo "No child issues found for parent #$PARENT_ID."
+              continue
+            fi
 
             # Sort the child issues by the number of comments (descending) and take the top 5
-            CHILDREN_LIST=$(echo "$CHILD_ISSUES" | jq -r 'sort_by(-.comments) | .[:5] | map("- [" + .title + "](https://github.com/'$REPO'/issues/" + (.number|tostring) + ")") | join("\n")')
+            CHILDREN_LIST=$(echo "$CHILD_ISSUES" | jq -r '
+              sort_by(-.comments) | .[:5] | map("- [" + .title + "](https://github.com/'$REPO'/issues/" + (.number|tostring) + ")") | join("\n")
+            ')
 
             # Insert the new Children line at the top of the description
             FINAL_DESCRIPTION=$(echo -e "Children:\n$CHILDREN_LIST\n\n$UPDATED_DESCRIPTION")
