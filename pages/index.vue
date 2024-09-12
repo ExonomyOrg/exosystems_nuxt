@@ -6,9 +6,10 @@
     <p>We're committed to creating a future of decentralized, sovereign interactions in both commercial and social spheres. Join us in shaping the future of digital interactions.</p>
     <nuxt-link to="/internship" class="button">Explore Opportunities</nuxt-link>
     <GoogleSignInButton
-      @success="handleLoginSuccess"
-      @error="handleLoginError"
-    />
+    :client="'72780742121-4j4tl98s5g99fmmcneked3d1pdnn7p9l.apps.googleusercontent.com'"
+  @success="handleLoginSuccess"
+  @error="handleLoginError"
+/>
   </div>
 </template>
 

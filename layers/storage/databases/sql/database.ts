@@ -4,7 +4,7 @@ import { config } from 'dotenv';
 
 config(); // Load environment variables
 
-const dbPath = process.env.DATABASE_PATH || './dev.db';
+const dbPath = process.env.DATABASE_PATH || './layers/storage/databases/sql/dev.db';
 let db: Database<sqlite3.Database, sqlite3.Statement> | null = null;
 
 export const initDB = async (): Promise<void> => {

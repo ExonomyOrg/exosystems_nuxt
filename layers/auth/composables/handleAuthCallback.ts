@@ -1,8 +1,8 @@
-import { googleAdapter } from '@/layers/auth/providers/oauth/google';
-import { useDb } from '~/server/useDb';
-import { githubAdapter } from '@/layers/auth/providers/oauth/github';
-import { metamaskAdapter } from '@/layers/auth/providers/oauth/metamask';
-import { User } from '~/layers/auth/composables/userType'; // Import your User type
+import { googleAdapter } from '~/layers/auth/providers/adapters/google';
+import { useDb } from '~/layers/storage/databases/sql/useDb';
+import { githubAdapter } from '~/layers/auth/providers/adapters/github';
+import { metamaskAdapter } from '~/layers/auth/providers/adapters/metamask';
+import { type User } from '~/layers/auth/composables/userType'; // Import your User type
 
 export async function handleAuthCallback(authData: any, provider: string) {
   let user: User;

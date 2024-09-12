@@ -1,9 +1,9 @@
 import { defineEventHandler, readBody } from 'h3';
-import { initDB } from '~/server/database';
-import { handleAuthCallback } from '~/server/auth/handleAuthCallback';
+import { initDB } from '~/layers/storage/databases/sql/database';
+import { handleAuthCallback } from '~/layers/auth/composables/handleAuthCallback';
 import { OAuth2Client } from 'google-auth-library';
-import { verifyGithubToken } from '~/server/auth/githubAuth';
-import { verifyMetaMaskToken } from '~/server/auth/metamaskAuth';
+import { verifyGithubToken } from '~/layers/auth/providers/oauth/githubAuth';
+import { verifyMetaMaskToken } from '~/layers/auth/providers/oauth/metamaskAuth';
 
 // Create an OAuth2 client with the Google client ID
 const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
