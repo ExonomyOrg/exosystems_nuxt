@@ -3,6 +3,8 @@ import { defineNuxtConfig } from 'nuxt/config'
 export default defineNuxtConfig({
   modules: [
     'nuxt-vue3-google-signin',
+    'better-sqlite3',
+    'drizzle-orm',
   ],
   googleSignIn: {
     clientId: process.env.GOOGLE_CLIENT_ID,

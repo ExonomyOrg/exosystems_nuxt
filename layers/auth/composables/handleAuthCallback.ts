@@ -1,11 +1,10 @@
 import { googleAdapter } from '~/layers/auth/providers/adapters/google';
-import { useDb } from '~/layers/storage/databases/sql/useDb';
 import { githubAdapter } from '~/layers/auth/providers/adapters/github';
 import { metamaskAdapter } from '~/layers/auth/providers/adapters/metamask';
 import { type User } from '~/layers/auth/composables/userType'; // Import your User type
-
+import { insertUser,type InsertUser } from '~/layers/storage/databases/sql/userDBsetup';
 export async function handleAuthCallback(authData: any, provider: string) {
-  let user: User;
+  let user: Omit<InsertUser,'id'>;
 
   // Determine which adapter to use based on the provider
   switch (provider) {
@@ -33,7 +32,11 @@ export async function handleAuthCallback(authData: any, provider: string) {
 
   // Store the user data in the database
   try {
-    await useDb(user.username, user.useremail, user.userid);
+    await insertUser(user).then(() => {
+  console.log("User insertion process completed");
+}).catch((error) => {
+  console.error("Error inserting user:", error);
+});
   } catch (error) {
     console.error('Database insertion error:', error);
     throw new Error('Failed to insert user data into the database.');

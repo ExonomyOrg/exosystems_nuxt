@@ -1,5 +1,4 @@
 import { defineEventHandler, readBody } from 'h3';
-import { initDB } from '~/layers/storage/databases/sql/database';
 import { handleAuthCallback } from '~/layers/auth/composables/handleAuthCallback';
 import { OAuth2Client } from 'google-auth-library';
 import { verifyGithubToken } from '~/layers/auth/providers/oauth/githubAuth';
@@ -9,7 +8,6 @@ import { verifyMetaMaskToken } from '~/layers/auth/providers/oauth/metamaskAuth'
 const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 export default defineEventHandler(async (event) => {
-  await initDB(); // Ensure DB is initialized
   const { credential, provider } = await readBody(event);
 
   try {
