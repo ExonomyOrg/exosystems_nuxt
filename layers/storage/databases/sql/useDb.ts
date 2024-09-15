@@ -40,9 +40,9 @@ export async function useDb(username: string, useremail: string, userid: string)
     if (userExists.count === 0) {
       // Insert the user information if not exists
       await db.run('INSERT INTO users (username, useremail, userid) VALUES (?, ?, ?)', [username, useremail, userid]);
-      console.log('User inserted successfully');
+      console.log('aaaaaaaaaaaaaaaaaaa');
     } else {
-      console.log('User already exists');
+      console.log('bbbbbbbbbbbbbbbbbbbbbbb');
     }
   } catch (error) {
     console.error('Database operation error:', error);

@@ -36,7 +36,7 @@ export default defineComponent({
           },
           body: JSON.stringify({ credential, provider: 'google' }),
         });
-        if (res.ok) {
+        if (res) {
           console.log('Authentication successful');
         } else {
           console.error('Authentication failed');

@@ -9,14 +9,13 @@ export const users = sqliteTable('users', {
   username: text('username'),
   useremail: text('useremail'),
   userid: text('userid'),
-  created_at: text('created_at')
 });
 
 // Define types for selecting and inserting users
 export type User = typeof users.$inferSelect; // return type when queried
 export type InsertUser = typeof users.$inferInsert; // insert type
-  const sqlite = new Database('./layers/storage/databases/sql/dev.db');
-  const db = drizzle(sqlite);
+const sqlite = new Database('./layers/storage/databases/sql/dev.db');
+export const db = drizzle(sqlite);
 
 // Function to insert a user if they don't already exist
 export const insertUser = async (user: Omit<InsertUser, 'id'>) => {
@@ -28,14 +27,14 @@ export const insertUser = async (user: Omit<InsertUser, 'id'>) => {
 
   // Check if user already exists
   try {
-    const existingUsers = db.select().from(users).where(eq(users.userid, user.userid)).all();
+    const existingUsers = await db.select().from(users).where(eq(users.userid, user.userid));
     if (existingUsers.length > 0) {
       console.log("User already exists");
       return;
     }
 
     // Insert new user
-    await db.insert(users).values(user);
+     await db.insert(users).values(user);
     console.log("User inserted successfully");
   } catch (error) {
     console.error('Error during database operation:', error);
