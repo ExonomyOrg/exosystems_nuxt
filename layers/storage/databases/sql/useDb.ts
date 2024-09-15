@@ -5,10 +5,10 @@ import path from 'path';
 
 // Get the project root directory
 const __filename = fileURLToPath(import.meta.url);
-const projectRoot = path.resolve(__filename, '../../..'); // Adjust the number of '../' to get to the root
+const projectRoot = path.resolve(__filename, '../../../'); // Adjust if needed to get to the root
 
 // Resolve the path to the SQLite database inside layers/storage/databases/sql
-const dbPath = path.resolve(projectRoot, './layers/storage/databases/sql/dev.db');
+const dbPath = path.resolve(projectRoot, 'layers/storage/databases/sql/dev.db');
 
 console.log('Database path:', dbPath); // Debugging to ensure correct path
 

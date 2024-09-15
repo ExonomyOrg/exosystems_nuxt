@@ -6,6 +6,7 @@
     <p>We're committed to creating a future of decentralized, sovereign interactions in both commercial and social spheres. Join us in shaping the future of digital interactions.</p>
     <nuxt-link to="/internship" class="button">Explore Opportunities</nuxt-link>
     <GoogleSignInButton
+    :client="'72780742121-4j4tl98s5g99fmmcneked3d1pdnn7p9l.apps.googleusercontent.com'"
   @success="handleLoginSuccess"
   @error="handleLoginError"
 />
@@ -14,7 +15,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import Navbar from '@/components/navbar.vue';
+import Navbar from '../components/navbar.vue';
 import { GoogleSignInButton, type CredentialResponse } from "vue3-google-signin";
 
 export default defineComponent({
