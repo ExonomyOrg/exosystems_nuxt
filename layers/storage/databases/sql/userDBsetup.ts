@@ -34,7 +34,7 @@ export const insertUser = async (user: Omit<InsertUser, 'id'>) => {
     }
 
     // Insert new user
-     await db.insert(users).values(user);
+     await db.insert(users).values(user).run();
     console.log("User inserted successfully");
   } catch (error) {
     console.error('Error during database operation:', error);
