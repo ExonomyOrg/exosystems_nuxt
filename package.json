@@ -12,9 +12,12 @@
   },
   "dependencies": {
     "@nuxt/types": "^2.18.1",
+    "@types/better-sqlite3": "^7.6.11",
     "@vue/cli-plugin-typescript": "^5.0.8",
     "axios": "^1.7.5",
+    "better-sqlite3": "^9.6.0",
     "dotenv": "^16.4.5",
+    "drizzle-orm": "^0.29.5",
     "google-auth-library": "^9.14.0",
     "nuxt": "^3.12.3",
     "nuxt-vue3-google-signin": "^0.0.11",
