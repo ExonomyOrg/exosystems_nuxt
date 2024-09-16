@@ -1,0 +1,7 @@
+
+better-sqlite3
+@types/better-sqlite3
+drizzle-orm
+nuxt-vue3-google-signin
+vue3-google-signin
+axios

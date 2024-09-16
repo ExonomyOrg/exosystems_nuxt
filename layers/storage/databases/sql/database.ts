@@ -5,10 +5,11 @@ import { config } from 'dotenv';
 config(); // Load environment variables
 
 const dbPath = process.env.DATABASE_PATH || './layers/storage/databases/sql/dev.db';
-let db: Database<sqlite3.Database, sqlite3.Statement> | null = null;
+let db: Database<sqlite3.Database, sqlite3.Statement> | null = null;//defining the type of variable db should be
 
-export const initDB = async (): Promise<void> => {
+export const initDB = async (): Promise<void> => {//function to initialize database if not already initialized
   if (!db) {
+    //create database if not already present
     db = await open({
       filename: dbPath,
       driver: sqlite3.Database
@@ -25,11 +26,4 @@ export const initDB = async (): Promise<void> => {
       )
     `);
   }
-};
-
-export const getDB = (): Database<sqlite3.Database, sqlite3.Statement> => {
-  if (!db) {
-    throw new Error('Database not initialized. Call initDB first.');
-  }
-  return db;
 };

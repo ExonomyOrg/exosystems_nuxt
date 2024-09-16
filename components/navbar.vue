@@ -6,9 +6,44 @@
       <nuxt-link to="/contact">Contact</nuxt-link>
       <nuxt-link to="/internship">Internship</nuxt-link>
       <nuxt-link to="/exonomy-design">Design</nuxt-link>
+      <nuxt-link v-if="isAuthenticated" to="/github-dashboard">GitHub Dashboard</nuxt-link>
     </div>
   </nav>
 </template>
+
+<script lang="ts" setup>
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
+
+// State to store the authentication status
+const isAuthenticated = ref(false);
+
+const checkToken = async () => {
+  const token = localStorage.getItem('github_token');
+
+  if (!token) {
+    isAuthenticated.value = false;
+    return;
+  }
+
+  try {
+    const response = await axios.get('https://api.github.com/user', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    isAuthenticated.value = response.status === 200;
+  } catch (error) {
+    isAuthenticated.value = false;
+  }
+};
+
+// Check token validity when the component is mounted
+onMounted(async () => {
+  await checkToken();
+});
+</script>
 
 <style scoped>
 .navbar {

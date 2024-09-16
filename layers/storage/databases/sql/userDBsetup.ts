@@ -17,7 +17,6 @@ export type InsertUser = typeof users.$inferInsert; // insert type
 const sqlite = new Database('./layers/storage/databases/sql/dev.db');
 export const db = drizzle(sqlite);
 
-
 // Function to insert a user if they don't already exist
 export const insertUser = async (user: Omit<InsertUser, 'id'>) => {
   // Ensure user.userid is defined

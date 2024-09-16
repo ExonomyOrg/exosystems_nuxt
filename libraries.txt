@@ -1,7 +1,0 @@
-npm install these:
-better-sqlite3
-@types/better-sqlite3
-drizzle-orm
-nuxt-vue3-google-signin
-vue3-google-signin
-also create a .env file and  initialzie variables GOOGLE_CLIENT_ID and DATABASE_PATH='./layers/storage/databases/sql/dev.db'
