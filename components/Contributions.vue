@@ -1,7 +1,8 @@
 <template>
   <div class="contributions">
     <h2>Your Contributions to {{ selectedRepo }}
-      <select v-model="selectedRepo" @change="fetchContributions" class="repo-dropdown">
+      <!-- Use v-bind and @change with emit -->
+      <select :value="selectedRepo" @change="updateRepo($event)" class="repo-dropdown">
         <option value="exosystems_nuxt">exosystems_nuxt</option>
         <option value="Exonomy">Exonomy</option>
         <option value="ExoTheme">ExoTheme</option>
@@ -20,30 +21,63 @@
   </div>
 </template>
 
-<script lang="ts" setup>
-import { defineProps, defineEmits } from 'vue';
-
+<script setup>
 const props = defineProps({
-  contributions: {
-    type: Array,
-    required: true
-  },
   selectedRepo: {
     type: String,
+    required: true
+  },
+  contributions: {
+    type: Array,
     required: true
   }
 });
 
-// Emit an event to trigger the fetchContributions method
-const emit = defineEmits(['updateRepo']);
-const fetchContributions = () => {
-  emit('updateRepo', selectedRepo);
+const emit = defineEmits(['update:selectedRepo']);
+
+const updateRepo = (event) => {
+  emit('update:selectedRepo', event.target.value);
 };
 </script>
 
+
 <style scoped>
-/* Add your styles for the Contributions section */
+.contributions {
+  flex: 3;
+  max-height: 650px;
+  background-color: #494646;
+  overflow: auto;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
 .repo-dropdown {
-  margin-left: 10px;
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #494646;
+  color: #7bcbed;
+  font-size: 1.2rem;
+  cursor: pointer;
+  appearance: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+}
+
+.repo-dropdown:hover {
+  background-color: #3e3e3e;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.contributions ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.contributions li {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border-bottom: 1px solid #6c6c6c;
 }
 </style>

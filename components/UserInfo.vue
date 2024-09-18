@@ -11,23 +11,42 @@
   </div>
 </template>
 
-<script lang="ts" setup>
-import { defineProps } from 'vue';
-
-// Define props to accept the user object
-const props = defineProps({
-  user: {
-    type: Object,
-    required: true
-  }
-});
+<script>
+export default {
+  props: {
+    user: {
+      type: Object,
+      required: true,
+    },
+  },
+};
 </script>
 
 <style scoped>
-/* Add your styles for the User Info section */
-.avatar {
+.user-info {
+  flex: 2;
+  max-height: 650px;
+  background-color: #2b06af;
+  overflow: auto;
+  padding: 1rem;
+  border-radius: 8px;
+  position: relative;
+
+  /* Centering content */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Center items horizontally */
+  justify-content: center;
+  /* Center items vertically */
+  text-align: center;
+  /* Center text inside elements */
+}
+
+.user-info .avatar {
   border-radius: 50%;
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
+  margin-top: 1rem;
 }
 </style>

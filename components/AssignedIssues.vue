@@ -7,23 +7,48 @@
         <p>Status: {{ issue.state }}</p>
       </li>
     </ul>
-    <div v-else>
-      <p>No assigned issues found.</p>
-    </div>
+    <p v-else>No assigned issues found.</p>
   </div>
 </template>
 
-<script lang="ts" setup>
-import { defineProps } from 'vue';
-
-const props = defineProps({
-  assignedIssues: {
-    type: Array,
-    required: true
-  }
-});
+<script>
+export default {
+  props: {
+    assignedIssues: {
+      type: Array,
+      required: true,
+    },
+    loading: {
+      type: Boolean,
+      required: true,
+    },
+    error: {
+      type: Boolean,
+      required: true,
+    },
+  },
+};
 </script>
 
 <style scoped>
-/* Add your styles for the Assigned Issues section */
+.assigned-issues {
+  flex: 3;
+  max-height: 650px;
+  background-color: #494646;
+  overflow: auto;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.assigned-issues ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.assigned-issues li {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border-bottom: 1px solid #6c6c6c;
+}
 </style>
