@@ -30,7 +30,7 @@
         </div>
         <button
           @click="loginWithGitHub"
-          class="panel-button"
+          class="panel-button white-button"
           :class="{ 'active': isLoggedIn('github') }"
           :disabled="isLoggedIn('github')"
         >
@@ -39,7 +39,7 @@
         </button>
         <button
           @click="loginWithMetaMask"
-          class="panel-button"
+          class="panel-button white-button"
           :class="{ 'active': isLoggedIn('metamask') }"
           :disabled="isLoggedIn('metamask')"
         >
@@ -54,7 +54,7 @@
       <div class="panel-content">
         <button
           @click="handleLogout('google')"
-          class="panel-button"
+          class="panel-button black-button"
           :disabled="!isLoggedIn('google')"
           :class="{ 'disabled': !isLoggedIn('google') }"
         >
@@ -63,7 +63,7 @@
         </button>
         <button
           @click="handleLogout('github')"
-          class="panel-button"
+          class="panel-button black-button"
           :disabled="!isLoggedIn('github')"
           :class="{ 'disabled': !isLoggedIn('github') }"
         >
@@ -72,7 +72,7 @@
         </button>
         <button
           @click="handleLogout('metamask')"
-          class="panel-button"
+          class="panel-button black-button"
           :disabled="!isLoggedIn('metamask')"
           :class="{ 'disabled': !isLoggedIn('metamask') }"
         >
@@ -101,6 +101,23 @@ export default defineComponent({
     };
   },
   methods: {
+    // Check if running on the client-side
+    isClient() {
+      return process.client;
+    },
+
+    isLoggedIn(provider?: string): boolean {
+      if (!this.isClient()) {
+        return false; // Or some default value if running on the server
+      }
+
+      if (provider) {
+        return !!localStorage.getItem(`${provider}_token`);
+      }
+      // Check if any provider token exists
+      return !!localStorage.getItem('google_token') || !!localStorage.getItem('github_token') || !!localStorage.getItem('metamask_token');
+    },
+
     toggleAuthPanel() {
       if (this.isLoggedIn()) {
         this.showLogoutPanel = !this.showLogoutPanel;
@@ -125,7 +142,9 @@ export default defineComponent({
           body: JSON.stringify({ credential, provider: 'google' }),
         });
         if (res.ok) {
-          localStorage.setItem('google_token', credential);
+          if (this.isClient()) {
+            localStorage.setItem('google_token', credential);
+          }
           console.log('Authentication successful');
           this.closePanel(); // Close panel on successful login
         } else {
@@ -139,7 +158,7 @@ export default defineComponent({
       console.error("Login failed");
     },
     loginWithGitHub() {
-      const clientId = process.env.GITHUB_CLIENT_ID; // Replace with your GitHub client ID
+      const clientId = 'Ov23li5X8H4A6wPKPTuR'; // Replace with your GitHub client ID
       const redirectUri = 'http://localhost:3000/auth/callback/github'; // Replace with your actual callback URL
       const scope = 'repo user';
       const authUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}`;
@@ -149,16 +168,11 @@ export default defineComponent({
     loginWithMetaMask() {
       // Your MetaMask login logic here
     },
-    isLoggedIn(provider?: string): boolean {
-      if (provider) {
-        return !!localStorage.getItem(`${provider}_token`);
-      }
-      // Check if any provider token exists
-      return !!localStorage.getItem('google_token') || !!localStorage.getItem('github_token') || !!localStorage.getItem('metamask_token');
-    },
     handleLogout(provider: string) {
       if (this.isLoggedIn(provider)) {
-        localStorage.removeItem(`${provider}_token`);
+        if (this.isClient()) {
+          localStorage.removeItem(`${provider}_token`);
+        }
         this.closePanel(); // Close panel on logout
         console.log(`${provider} logged out`);
       }
@@ -229,60 +243,46 @@ export default defineComponent({
   height: 200px; /* Height enough for the buttons */
   transform: translateY(-50%); /* Adjust for centering */
   background-color: rgba(116, 115, 118, 0.2); /* Slightly transparent background */
-  transition: right 0.3s ease-in-out;
-  box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   z-index: 1000;
+  transition: right 0.3s ease;
+  border-radius: 8px; /* Rounded corners */
 }
 
 .sliding-panel.open {
-  right: 0; /* When panel is open, show it */
+  right: 0; /* Slide in the panel */
 }
 
 .sliding-panel.closed {
-  right: -300px; /* When panel is closed, hide it */
+  right: -300px; /* Slide out the panel */
 }
 
-/* Panel Content */
+/* Panel Content Styles */
 .panel-content {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
+  padding: 20px;
+  gap: 10px;
 }
 
 .panel-button {
-  width: 80%;
   padding: 10px;
-  margin: 10px 0;
-  background-color: #ffffff;
-  color: black;
+  background-color: #007bff;
+  color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.3s ease, border 0.3s ease;
+  transition: opacity 0.3s ease;
 }
 
 .panel-button.disabled {
-  background-color: #f5f5f5; /* Light grey for disabled state */
-  color: #999999; /* Lighter text color */
-  cursor: not-allowed; /* Disable cursor */
-  opacity: 0.5; /* Fade out the button */
+  opacity: 0.5; /* Disabled button opacity */
+  cursor: not-allowed; /* Change cursor to indicate disabled state */
 }
 
-.panel-button.active {
-  background-color: #cccccc; /* Light grey for sunken effect */
-  color: #666666; /* Darker text color */
-  border: 2px inset #aaaaaa; /* Inset border for sunken effect */
-  cursor: not-allowed; /* Disable cursor */
-}
-
-.logo {
-  width: 24px; /* Adjust size as needed */
-  height: auto;
-  margin-left: 12px; /* Increase space between logo and text */
+.panel-button img.logo {
+  width: 20px;
+  height: 20px;
+  margin-left: 8px; /* Space between text and logo */
 }
 </style>

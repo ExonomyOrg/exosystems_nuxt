@@ -5,3 +5,5 @@ drizzle-orm
 nuxt-vue3-google-signin
 vue3-google-signin
 axios
+pinia
+pinia-plugin-persistedstate

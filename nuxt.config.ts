@@ -20,7 +20,7 @@ export default defineNuxtConfig({
   ],
   runtimeConfig: {
     private: {
-      databasePath: process.env.DATABASE_PATH || './dev.db',
+      databasePath: process.env.DATABASE_PATH || './layers/storage/databases/sql/dev.db',
       // Add other private config here
     },
   },
