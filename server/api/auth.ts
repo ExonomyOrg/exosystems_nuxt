@@ -4,7 +4,9 @@ import { handleAuthCallback } from '~/layers/auth/composables/handleAuthCallback
 import { OAuth2Client } from 'google-auth-library';
 import { verifyGithubToken } from '~/layers/auth/providers/oauth/githubAuth';
 import { verifyMetaMaskToken } from '~/layers/auth/providers/oauth/metamaskAuth';
-
+import { googleAdapter } from '~/layers/auth/providers/adapters/google';
+import { githubAdapter } from '~/layers/auth/providers/adapters/github';
+import { metamaskAdapter } from '~/layers/auth/providers/adapters/metamask';
 // Create an OAuth2 client with the Google client ID
 const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
@@ -62,12 +64,13 @@ async function handleGoogleAuth(idToken: string) {
 
 // Function to handle GitHub authentication
 async function handleGithubAuth(token: string) {
-  const user = await verifyGithubToken(token);
-  return {
-    username: user.login,
-    useremail: user.email,
-    userid: user.id.toString(),
+  const user1 = await verifyGithubToken(token);
+  const user={
+    username: user1.name,
+    useremail: user1.email||"not provided",
+    userid: user1.id.toString(),
   };
+  return user;
 }
 
 // Function to handle MetaMask authentication
@@ -75,7 +78,7 @@ async function handleMetaMaskAuth(token: string) {
   const user = await verifyMetaMaskToken(token);
   return {
     username: user.account,
-    useremail: '', // MetaMask typically does not provide an email
+    useremail: 'not provided', // MetaMask typically does not provide an email
     userid: user.account,
   };
 }

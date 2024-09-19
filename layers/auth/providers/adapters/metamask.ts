@@ -7,7 +7,7 @@ interface MetaMaskAuthData {
   // MetaMask doesn't typically provide a username or email
 }
 
-export function metamaskAdapter(authData: MetaMaskAuthData): User {
+export function metamaskAdapter(authData: any): User {
   return {
     username: authData.account || '', // Use Ethereum address as username
     useremail: '', // MetaMask doesn't provide email
