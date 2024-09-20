@@ -4,6 +4,7 @@ export const usePreferencesStore = defineStore('preferences', {
     state: () => ({
         theme: 'light', // default value
         notifications: true, // default value
+        user_form_acess: false,
     }),
     actions: {
         setTheme(theme: string) {
