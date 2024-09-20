@@ -2,16 +2,16 @@
   <Navbar />
   <div style="margin-left: 15%; margin-top: 5%; margin-right: 15%;">
     <h1>Welcome to ExoSystems</h1>
-    <p>ExoSystems is a pioneering company dedicated to building innovative exo applications. Our flagship projects, Exonomy and Exocracy, are designed to revolutionize peer-to-peer commerce and social media autonomy.</p>
-    <p>We're committed to creating a future of decentralized, sovereign interactions in both commercial and social spheres. Join us in shaping the future of digital interactions.</p>
+    <p>ExoSystems is a pioneering company dedicated to building innovative exo applications. Our flagship projects,
+      Exonomy and Exocracy, are designed to revolutionize peer-to-peer commerce and social media autonomy.</p>
+    <p>We're committed to creating a future of decentralized, sovereign interactions in both commercial and social
+      spheres. Join us in shaping the future of digital interactions.</p>
     <nuxt-link to="/internship" class="button">Explore Opportunities</nuxt-link>
 
     <!-- Conditional Button (Login/Logout) -->
-    <button 
-      class="auth-button"
+    <button class="auth-button"
       :style="{ backgroundColor: isLoggedIn() ? '#000' : '#007bff', color: isLoggedIn() ? '#fff' : '#fff' }"
-      @click="toggleAuthPanel"
-    >
+      @click="toggleAuthPanel">
       {{ isLoggedIn() ? 'Logout?' : 'Login?' }}
     </button>
 
@@ -22,17 +22,10 @@
     <div :class="['sliding-panel', (isPanelVisible || showLogoutPanel) ? 'open' : 'closed']" @click.stop>
       <div class="panel-content">
         <!-- Google Button -->
-        <div :class="{ 'active': isLoggedIn('google'), 'pressed': isLoggedIn('google') }" :style="{ opacity: isLoggedIn('google') ? 1 : 1 }">
-          <GoogleSignInButton
-            v-if="!isLoggedIn('google')"
-            @success="handleLoginSuccess"
-            @error="handleLoginError"
-          />
-          <button
-            v-else
-            @click="handleLogout('google')"
-            class="panel-button pressed"
-          >
+        <div :class="{ 'active': isLoggedIn('google'), 'pressed': isLoggedIn('google') }"
+          :style="{ opacity: isLoggedIn('google') ? 1 : 1 }">
+          <GoogleSignInButton v-if="!isLoggedIn('google')" @success="handleLoginSuccess" @error="handleLoginError" />
+          <button v-else @click="handleLogout('google')" class="panel-button pressed">
             Logout from Google
             <img src="/assets/google-logo.svg" alt="Google Logo" class="logo" />
           </button>
@@ -40,19 +33,11 @@
 
         <!-- GitHub Button -->
         <div :class="{ 'active': isLoggedIn('github'), 'pressed': isLoggedIn('github') }">
-          <button
-            v-if="!isLoggedIn('github')"
-            @click="loginWithGitHub"
-            class="panel-button white-button"
-          >
+          <button v-if="!isLoggedIn('github')" @click="loginWithGitHub" class="panel-button white-button">
             Login with GitHub
             <img src="/assets/github-logo.svg" alt="GitHub Logo" class="logo" />
           </button>
-          <button
-            v-else
-            @click="handleLogout('github')"
-            class="panel-button pressed github-button"
-          >
+          <button v-else @click="handleLogout('github')" class="panel-button pressed github-button">
             Logout from GitHub
             <img src="/assets/github-logo.svg" alt="GitHub Logo" class="logo" />
           </button>
@@ -60,19 +45,11 @@
 
         <!-- MetaMask Button -->
         <div :class="{ 'active': isLoggedIn('metamask'), 'pressed': isLoggedIn('metamask') }">
-          <button
-            v-if="!isLoggedIn('metamask')"
-            @click="loginWithMetaMask"
-            class="panel-button white-button"
-          >
+          <button v-if="!isLoggedIn('metamask')" @click="loginWithMetaMask" class="panel-button white-button">
             Login with MetaMask
             <img src="/assets/metamask-logo.svg" alt="MetaMask Logo" class="logo" />
           </button>
-          <button
-            v-else
-            @click="handleLogout('metamask')"
-            class="panel-button pressed metamask-button"
-          >
+          <button v-else @click="handleLogout('metamask')" class="panel-button pressed metamask-button">
             Logout from MetaMask
             <img src="/assets/metamask-logo.svg" alt="MetaMask Logo" class="logo" />
           </button>
@@ -86,7 +63,8 @@
 import { defineComponent } from 'vue';
 import Navbar from '@/components/navbar.vue';
 import { GoogleSignInButton, type CredentialResponse } from "vue3-google-signin";
-
+import { useRouter } from 'vue-router'
+const router = useRouter();
 export default defineComponent({
   components: {
     Navbar,
@@ -123,30 +101,13 @@ export default defineComponent({
       this.isPanelVisible = false;
       this.showLogoutPanel = false;
     },
+
     async handleLoginSuccess(response: CredentialResponse) {
       const { credential } = response;
       console.log("Access Token", credential);
-
-      try {
-        const res = await fetch('/api/auth', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ credential, provider: 'google' }),
-        });
-        if (res.ok) {
-          if (this.isClient()) {
-            localStorage.setItem('google_token', credential);
-          }
-          console.log('Authentication successful');
-          this.closePanel();
-        } else {
-          console.error('Authentication failed');
-        }
-      } catch (error) {
-        console.error('Error:', error);
-      }
+      localStorage.setItem('google_token', credential);
+      localStorage.setItem('auth_provider', 'google');
+      window.location.href = 'http://localhost:3000/user-form';
     },
     handleLoginError() {
       console.error("Login failed");
@@ -272,10 +233,12 @@ export default defineComponent({
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  width: 100%;  /* Ensures consistent button width */
+  width: 100%;
+  /* Ensures consistent button width */
   max-width: 260px;
   transition: opacity 0.3s ease;
-  height: 40px; /* Adjust height if needed */
+  height: 40px;
+  /* Adjust height if needed */
 }
 
 .panel-button img.logo {
@@ -305,7 +268,9 @@ export default defineComponent({
 }
 
 /* Adjustments for specific button types */
-.github-button, .metamask-button, .white-button {
+.github-button,
+.metamask-button,
+.white-button {
   height: 40px;
 }
 </style>

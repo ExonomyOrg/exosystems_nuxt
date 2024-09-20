@@ -12,22 +12,22 @@ const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 export default defineEventHandler(async (event) => {
   await initDB(); // Ensure DB is initialized
-  const { credential, provider } = await readBody(event);
+  const { credential, provider, form_data } = await readBody(event);
 
   try {
     let user;
 
     switch (provider) {
       case 'google':
-        user = await handleGoogleAuth(credential);
+        user = await handleGoogleAuth(credential, form_data);
         break;
 
       case 'github':
-        user = await handleGithubAuth(credential);
+        user = await handleGithubAuth(credential, form_data);
         break;
 
       case 'metamask':
-        user = await handleMetaMaskAuth(credential);
+        user = await handleMetaMaskAuth(credential, form_data);
         break;
 
       default:
@@ -44,7 +44,7 @@ export default defineEventHandler(async (event) => {
 });
 
 // Function to handle Google authentication
-async function handleGoogleAuth(idToken: string) {
+async function handleGoogleAuth(idToken: string, form_data: any) {
   const ticket = await googleClient.verifyIdToken({
     idToken,
     audience: process.env.GOOGLE_CLIENT_ID,
@@ -56,6 +56,9 @@ async function handleGoogleAuth(idToken: string) {
       username: payload.name,
       useremail: payload.email,
       userid: payload.sub,
+      firstname: form_data.firstname,
+      lastname: form_data.lastname,
+      contactnumber: form_data.contactnumber
     };
   } else {
     throw new Error('Payload is missing from token');
@@ -63,22 +66,28 @@ async function handleGoogleAuth(idToken: string) {
 }
 
 // Function to handle GitHub authentication
-async function handleGithubAuth(token: string) {
+async function handleGithubAuth(token: string, form_data: any) {
   const user1 = await verifyGithubToken(token);
-  const user={
+  const user = {
     username: user1.name,
-    useremail: user1.email||"not provided",
+    useremail: user1.email || "not provided",
     userid: user1.id.toString(),
+    firstname: form_data.firstname,
+    lastname: form_data.lastname,
+    contactnumber: form_data.contactnumber
   };
   return user;
 }
 
 // Function to handle MetaMask authentication
-async function handleMetaMaskAuth(token: string) {
+async function handleMetaMaskAuth(token: string, form_data: any) {
   const user = await verifyMetaMaskToken(token);
   return {
     username: user.account,
     useremail: 'not provided', // MetaMask typically does not provide an email
     userid: user.account,
+    firstname: form_data.firstname,
+    lastname: form_data.lastname,
+    contactnumber: form_data.contactnumber
   };
 }

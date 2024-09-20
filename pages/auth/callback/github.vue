@@ -38,20 +38,13 @@ const exchangeCodeForToken = async (code: string | null): Promise<void> => {
       // Store the access token securely (e.g., in localStorage or Vuex/Pinia state)
 
       try {
-        const res = await fetch('/api/auth', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ credential:access_token, provider: 'github' }),
-        });
-        if (res.ok) {
-          localStorage.setItem('github_token', access_token);
-          console.log('Authentication successful');
-        } else {
-          console.error('Authentication failed');
-        }
-      } catch (error) {
+        localStorage.setItem('github_token', access_token);
+        localStorage.setItem('auth_provider', 'github');
+
+        console.log('Authentication successful');
+        window.location.href = 'http://localhost:3000/user-form';
+      }
+      catch (error) {
         console.error('Error:', error);
       }
       token.value = access_token;

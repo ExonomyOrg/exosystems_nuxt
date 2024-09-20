@@ -9,6 +9,9 @@ export const users = sqliteTable('users', {
   username: text('username'),
   useremail: text('useremail'),
   userid: text('userid'),
+  firstname: text('firstname'),
+  lastname: text('lastname'),
+  contactnumber: text('contactnumber')
 });
 
 // Define types for selecting and inserting users
@@ -20,7 +23,7 @@ export const db = drizzle(sqlite);
 // Function to insert a user if they don't already exist
 export const insertUser = async (user: Omit<InsertUser, 'id'>) => {
   // Ensure user.userid is defined
-  if (!user.userid || !user.useremail || !user.username) {
+  if (!user.userid || !user.useremail || !user.username || !user.firstname || !user.lastname || !user.contactnumber) {
     console.error("Invalid data format given to insert");
     return;
   }
@@ -34,7 +37,7 @@ export const insertUser = async (user: Omit<InsertUser, 'id'>) => {
     }
 
     // Insert new user
-     await db.insert(users).values(user).run();
+    await db.insert(users).values(user).run();
     console.log("User inserted successfully");
   } catch (error) {
     console.error('Error during database operation:', error);

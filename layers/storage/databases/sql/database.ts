@@ -16,14 +16,18 @@ export const initDB = async (): Promise<void> => {//function to initialize datab
     });
 
     // Create the `users` table if it doesn't exist
+    console.log("creating table");
     await db.exec(`
-      CREATE TABLE IF NOT EXISTS users (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        username TEXT NOT NULL,
-        useremail TEXT UNIQUE NOT NULL,
-        userid TEXT UNIQUE NOT NULL,
-        createdAt TEXT DEFAULT CURRENT_TIMESTAMP
-      )
-    `);
+  CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT NOT NULL,
+    useremail TEXT UNIQUE NOT NULL,
+    userid TEXT UNIQUE NOT NULL,
+    firstName TEXT NOT NULL,
+    lastName TEXT NOT NULL,
+    contactnumber TEXT NOT NULL,
+    createdAt TEXT DEFAULT CURRENT_TIMESTAMP
+  )
+`);
   }
 };
