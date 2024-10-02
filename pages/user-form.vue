@@ -27,7 +27,7 @@
                 <label for="contactNumber">Contact Number:</label>
                 <div class="input-container">
                     <div class="contact-number-wrapper">
-                        <select v-model="form.countryCode" @change="updateCountryCode">
+                        <select v-model="form.countryCode">
                             <option v-for="(country, code) in countryCodes" :key="code" :value="code">
                                 {{ country }} ({{ code }})
                             </option>
@@ -44,14 +44,19 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import { useRouter } from 'vue-router'
+import { useTokenStore } from '~/stores/tokenStore'; // Importing pinia store
+import { ref, computed } from 'vue';
+import { useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
+
+// Initialize the store
+const tokenStore = useTokenStore();
 const form = ref({
     firstName: '',
     lastName: '',
     contactNumber: '',
     countryCode: '+1', // Default country code
-})
+});
 
 // A comprehensive list of country codes
 const countryCodes = ref({
@@ -86,44 +91,34 @@ const countryCodes = ref({
     '+971': 'UAE',
     '+966': 'Saudi Arabia',
     // Add more country codes as needed
-})
+});
 
-const router = useRouter()
+const router = useRouter();
+const route = useRoute(); // Access the route to get query parameters
+
+// Access the token and provider from query parameters
+const token = route.query.token || ''; // Get the token from the URL
 
 // Computed properties for validation
 const isContactNumberValid = computed(
     () => form.value.contactNumber.length >= 10
-)
+);
 const isFormValid = computed(
     () =>
         form.value.firstName &&
         form.value.lastName &&
         isContactNumberValid.value
-)
+);
 
 const handleSubmit = async () => {
     if (isFormValid.value) {
-        const provider = localStorage.getItem('auth_provider');
-        let token;
+        let final_contact_number = form.value.countryCode + form.value.contactNumber;
         const form_data = {
             firstname: form.value.firstName,
             lastname: form.value.lastName,
-            contactnumber: form.value.contactNumber
-        }
-        switch (provider) {
-            case 'google':
-                token = localStorage.getItem('google_token');
-                break;
-            case 'github':
-                token = localStorage.getItem('github_token'); // Assuming you're storing GitHub token this way
-                break;
-            case 'metamask':
-                token = localStorage.getItem('metamask_token'); // Assuming you're storing MetaMask token
-                break;
-            default:
-                console.error('No provider found');
-                return;
-        }
+            contactnumber: final_contact_number
+        };
+        let provider = localStorage.getItem('auth_provider');
 
         try {
             const response = await fetch('/api/auth', {
@@ -132,14 +127,29 @@ const handleSubmit = async () => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ credential: token, provider, form_data }),
-            })
+            });
 
             const result = await response.json();
 
             if (result.status === 'success') {
                 console.log('User authenticated successfully');
                 // Redirect or handle success
-                window.location.href = 'https://exosystems.net';
+                // Set the token in the localstorage based on the provider
+                switch (provider) {
+                    case 'google':
+                        localStorage.setItem('google_token', token);
+                        break;
+                    case 'github':
+                        localStorage.setItem('github_token', token);// Assuming you're storing GitHub token this way
+                        break;
+                    case 'metamask':
+                        localStorage.setItem('metamask_token', token); // Assuming you're storing MetaMask token
+                        break;
+                    default:
+                        console.error('No provider found');
+                        return;
+                }
+                window.location.href = 'http://localhost:3000';
             } else {
                 console.error('Authentication failed', result.message);
             }
@@ -149,21 +159,15 @@ const handleSubmit = async () => {
     }
 };
 
-
 // Validate contact number to ensure only digits are allowed
 const validateContactNumber = (event) => {
-    const input = event.target
-    const value = input.value
-    const digitsOnly = value.replace(/\D/g, '') // Remove non-digit characters
+    const input = event.target;
+    const value = input.value;
+    const digitsOnly = value.replace(/\D/g, ''); // Remove non-digit characters
     if (value !== digitsOnly) {
-        input.value = digitsOnly
-        form.value.contactNumber = digitsOnly
+        input.value = digitsOnly;
+        form.value.contactNumber = digitsOnly;
     }
-}
-
-// Update the contact number when the country code changes
-const updateCountryCode = () => {
-    form.value.contactNumber = form.value.contactNumber.replace(/^\d+/, '') // Remove any existing prefix
 }
 </script>
 

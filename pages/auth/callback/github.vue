@@ -38,11 +38,9 @@ const exchangeCodeForToken = async (code: string | null): Promise<void> => {
       // Store the access token securely (e.g., in localStorage or Vuex/Pinia state)
 
       try {
-        localStorage.setItem('github_token', access_token);
         localStorage.setItem('auth_provider', 'github');
-
         console.log('Authentication successful');
-        window.location.href = 'https://exosystems.net/user-form';
+        window.location.href = `http://localhost:3000/user-form/?token=${access_token}`;
       }
       catch (error) {
         console.error('Error:', error);

@@ -80,7 +80,7 @@ async function handleGithubAuth(token: string, form_data: any) {
 async function handleMetaMaskAuth(token: string, form_data: any) {
   const user = await verifyMetaMaskToken(token);
   return {
-    username: user.account,
+    username: 'not provided',
     useremail: 'not provided', // MetaMask typically does not provide an email
     userid: user.account,
     firstname: form_data.firstname,

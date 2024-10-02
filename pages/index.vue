@@ -26,35 +26,33 @@
     <div :class="['sliding-panel', (isPanelVisible || showLogoutPanel) ? 'open' : 'closed']" @click.stop>
       <div class="panel-content">
         <!-- Google Button -->
-        <div :class="{ 'active': isLoggedIn('google'), 'pressed': isLoggedIn('google') }"
-          :style="{ opacity: isLoggedIn('google') ? 1 : 1 }">
+        <div>
           <GoogleSignInButton v-if="!isLoggedIn('google')" @success="handleLoginSuccess" @error="handleLoginError" />
-          <button v-else @click="handleLogout('google')" class="panel-button pressed">
+          <button v-if="isLoggedIn('google')" @click="handleLogout('google')" class="panel-button pressed">
             Logout from Google
             <img src="/assets/google-logo.svg" alt="Google Logo" class="logo" />
           </button>
         </div>
 
         <!-- GitHub Button -->
-        <div :class="{ 'active': isLoggedIn('github'), 'pressed': isLoggedIn('github') }"
-          :style="{ opacity: isLoggedIn('github') ? 1 : 1 }">
-
+        <div>
           <button v-if="!isLoggedIn('github')" @click="loginWithGitHub" class="white-button panel-button">
             Login with GitHub
             <img src="/assets/github-logo.svg" alt="GitHub Logo" class="logo" />
           </button>
-          <button v-else @click="handleLogout('github')" class=" panel-button pressed ">
+          <button v-if="isLoggedIn('github')" @click="handleLogout('github')" class="panel-button pressed">
             Logout from GitHub
             <img src="/assets/github-logo.svg" alt="GitHub Logo" class="logo" />
           </button>
         </div>
+
         <!-- MetaMask Button -->
-        <div :class="{ 'active': isLoggedIn('metamask'), 'pressed': isLoggedIn('metamask') }">
-          <button v-if="!isLoggedIn('metamask')" @click="loginWithMetaMask" class="panel-button white-button">
+        <div>
+          <button v-if="!isLoggedIn('metamask')" @click="connectWallet" class="panel-button white-button">
             Login with MetaMask
             <img src="/assets/metamask-logo.svg" alt="MetaMask Logo" class="logo" />
           </button>
-          <button v-else @click="handleLogout('metamask')" class="panel-button pressed metamask-button">
+          <button v-if="isLoggedIn('metamask')" @click="handleLogout('metamask')" class="panel-button pressed">
             Logout from MetaMask
             <img src="/assets/metamask-logo.svg" alt="MetaMask Logo" class="logo" />
           </button>
@@ -63,11 +61,14 @@
     </div>
   </div>
 </template>
+
 <script lang="ts">
-import { defineComponent, ref, onMounted } from 'vue';
+import { useTokenStore } from '~/stores/tokenStore' // Importing Pinia store
+import { defineComponent, ref, onMounted, computed } from 'vue';
 import Navbar from '@/components/navbar.vue';
 import { GoogleSignInButton, type CredentialResponse } from "vue3-google-signin";
 import { useRuntimeConfig } from '#app';
+import { is } from 'drizzle-orm';
 
 export default defineComponent({
   components: {
@@ -75,8 +76,26 @@ export default defineComponent({
     GoogleSignInButton,
   },
   setup() {
+    // Initialize the store
+    const tokenStore = useTokenStore();
     const { public: { githubClientId } } = useRuntimeConfig(); // Accessing public runtime config
     const loggedIn = ref(false);
+
+    const isLoggedIn = (provider: string): boolean => {
+      if (process.client) {
+        switch (provider) {
+          case 'google':
+            return !!localStorage.getItem('google_token');
+          case 'github':
+            return !!localStorage.getItem('github_token');
+          case 'metamask':
+            return !!localStorage.getItem('metamask_token');
+          default:
+            return false;
+        }
+      }
+      return false;
+    };
 
     onMounted(() => {
       // Only access localStorage on the client
@@ -90,6 +109,8 @@ export default defineComponent({
     return {
       githubClientId,
       loggedIn,
+      tokenStore,
+      isLoggedIn,
     };
   },
   data() {
@@ -99,21 +120,8 @@ export default defineComponent({
     };
   },
   methods: {
-    isClient() {
-      return process.client;
-    },
-    isLoggedIn(provider?: string): boolean {
-      // Only access localStorage on the client
-      if (this.isClient()) {
-        if (provider) {
-          return !!localStorage.getItem(`${provider}_token`);
-        }
-        return this.loggedIn; // Correctly access the value
-      }
-      return false; // Default to false when not on the client
-    },
     toggleAuthPanel() {
-      if (this.isLoggedIn()) {
+      if (this.isLoggedIn('google') || this.isLoggedIn('github') || this.isLoggedIn('metamask')) {
         this.showLogoutPanel = !this.showLogoutPanel;
       } else {
         this.isPanelVisible = !this.isPanelVisible;
@@ -126,32 +134,50 @@ export default defineComponent({
     async handleLoginSuccess(response: CredentialResponse) {
       const { credential } = response;
       console.log("Access Token", credential);
-      if (this.isClient()) { // Check if on client
-        localStorage.setItem('google_token', credential || '');
+      if (process.client) { // Check if on client
+        localStorage.setItem('google_token', credential || ' ');
         localStorage.setItem('auth_provider', 'google');
       }
-      window.location.href = 'https://exosystems.net/user-form';
+      window.location.href = `http://localhost:3000/user-form/?token=${credential}`;
     },
     handleLoginError() {
       console.error("Login failed");
     },
     loginWithGitHub() {
       const clientId = this.githubClientId;
-      const redirectUri = 'https://exosystems.net/auth/callback/github';
+      const redirectUri = 'http://localhost:3000/auth/callback/github';
       const scope = 'repo user';
       const authUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}`;
 
       window.location.href = authUrl;
     },
-    loginWithMetaMask() {
-      // MetaMask login logic
+    // Function to check if MetaMask is installed
+    checkMetaMaskAvailability() {
+      return !!window.ethereum;
+    },
+    async connectWallet() {
+      if (!this.checkMetaMaskAvailability()) return;
+
+      try {
+        const accounts = await window.ethereum.request({
+          method: 'eth_requestAccounts'
+        });
+        const walletAddress = accounts[0];
+        console.log(walletAddress);
+        localStorage.setItem('auth_provider', 'metamask');
+        window.location.href = `http://localhost:3000/user-form/?token=${walletAddress}`;
+      } catch (err) {
+        console.error('Could not connect to MetaMask', err);
+      }
     },
     handleLogout(provider: string) {
       if (this.isLoggedIn(provider)) {
-        if (this.isClient()) { // Check if on client
+        if (process.client) { // Check if on client
           localStorage.removeItem(`${provider}_token`);
         }
-        this.loggedIn = false; // Correctly set the value to false
+        this.loggedIn = !!localStorage.getItem('google_token') ||
+          !!localStorage.getItem('github_token') ||
+          !!localStorage.getItem('metamask_token');// Update loggedIn status after logout
         this.closePanel();
         console.log(`${provider} logged out`);
       }
@@ -167,6 +193,7 @@ export default defineComponent({
   }
 });
 </script>
+
 
 
 <style scoped>
@@ -289,7 +316,7 @@ export default defineComponent({
 }
 
 .metamask-button {
-  background-color: #f6851b;
+  background-color: #333;
   color: #fff;
 }
 

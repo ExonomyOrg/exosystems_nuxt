@@ -8,7 +8,7 @@
     <div class="header">
       <div class="header-content">
         <h1>GitHub Dashboard
-          
+
         </h1>
       </div>
     </div>
@@ -36,7 +36,6 @@
 <script lang="ts" setup>
 import { ref, onMounted, watch } from 'vue';
 import axios from 'axios';
-import UserInfo from '~/components/UserInfo'
 // State variables
 const user = ref<any>(null);
 const contributions = ref<any[]>([]);
@@ -108,11 +107,12 @@ const fetchCommitsForAllBranches = async (token: string, branches: any[]) => {
 
   for (const branch of branches) {
     try {
-      const commitsResponse = await axios.get(`https://api.github.com/repos/${repoOwner}/${selectedRepo.value}/commits?sha=${branch.name}&author=${user.value.login}`, {
+      const commitsResponse = await axios.get(`https://api.github.com/repos/${repoOwner}/${selectedRepo.value}/commits?sha=${branch.name}&author=${user.value.login}&t=${new Date().getTime()}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
+
 
       // Add the branch name to each commit object
       const commitsWithBranch = commitsResponse.data.map((commit: any) => ({
@@ -165,11 +165,12 @@ const fetchAssignedIssues = async (token: string, username: string) => {
     console.error('Error fetching assigned issues:', err); // Log error details
   }
 };
-const updateSelectedRepo = (newRepo) => {
+const updateSelectedRepo = async (newRepo: any) => {
   selectedRepo.value = newRepo;
   // Fetch new contributions based on the new repo
-  fetchContributions(newRepo);
+  await fetchContributions(); // Ensure to await the function to handle async properly
 };
+
 // Fetch user data when component is mounted
 onMounted(() => {
   fetchUserData();
@@ -182,6 +183,7 @@ onMounted(() => {
   height: auto;
   /* Maintains aspect ratio */
 }
+
 .github-dashboard {
   padding: 2rem;
   max-width: 100%;

@@ -21,7 +21,7 @@ export const initDB = async (): Promise<void> => {//function to initialize datab
   CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT NOT NULL,
-    useremail TEXT UNIQUE NOT NULL,
+    useremail TEXT  NOT NULL,
     userid TEXT UNIQUE NOT NULL,
     firstName TEXT NOT NULL,
     lastName TEXT NOT NULL,
