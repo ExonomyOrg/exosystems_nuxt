@@ -149,7 +149,7 @@ const handleSubmit = async () => {
                         console.error('No provider found');
                         return;
                 }
-                window.location.href = 'http://localhost:3000';
+                window.location.href = 'https://exosystems.net';
             } else {
                 console.error('Authentication failed', result.message);
             }

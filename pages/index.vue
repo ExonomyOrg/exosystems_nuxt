@@ -138,14 +138,14 @@ export default defineComponent({
         localStorage.setItem('google_token', credential || ' ');
         localStorage.setItem('auth_provider', 'google');
       }
-      window.location.href = `http://localhost:3000/user-form/?token=${credential}`;
+      window.location.href = `https://exosystems.net/user-form/?token=${credential}`;
     },
     handleLoginError() {
       console.error("Login failed");
     },
     loginWithGitHub() {
       const clientId = this.githubClientId;
-      const redirectUri = 'http://localhost:3000/auth/callback/github';
+      const redirectUri = 'https://exosystems.net/auth/callback/github';
       const scope = 'repo user';
       const authUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}`;
 
@@ -165,7 +165,7 @@ export default defineComponent({
         const walletAddress = accounts[0];
         console.log(walletAddress);
         localStorage.setItem('auth_provider', 'metamask');
-        window.location.href = `http://localhost:3000/user-form/?token=${walletAddress}`;
+        window.location.href = `https://exosystems.net/user-form/?token=${walletAddress}`;
       } catch (err) {
         console.error('Could not connect to MetaMask', err);
       }

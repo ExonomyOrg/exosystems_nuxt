@@ -40,7 +40,7 @@ const exchangeCodeForToken = async (code: string | null): Promise<void> => {
       try {
         localStorage.setItem('auth_provider', 'github');
         console.log('Authentication successful');
-        window.location.href = `http://localhost:3000/user-form/?token=${access_token}`;
+        window.location.href = `https://exosystems.net/user-form/?token=${access_token}`;
       }
       catch (error) {
         console.error('Error:', error);
