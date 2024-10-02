@@ -6,7 +6,7 @@ export const usePreferencesStore = defineStore('preferences', {
         notifications: true, // default value
         user_form_acess: false,
     }),
-    actions: {
+    actions: {//functions to set and modify theme and notification
         setTheme(theme: string) {
             this.theme = theme
             localStorage.setItem('theme', theme)

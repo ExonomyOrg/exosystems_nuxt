@@ -2,7 +2,6 @@
 
 import { defineEventHandler, readBody } from 'h3';
 import axios from 'axios';
-
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
   const { code } = body;

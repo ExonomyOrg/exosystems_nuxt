@@ -22,10 +22,13 @@ export default defineNuxtConfig({
     '@/assets/global.css'
   ],
   runtimeConfig: {
+    public: {
+      apiUrl: process.env.API_URL,
+      githubClientId: process.env.GITHUB_CLIENT_ID,
+    },
     private: {
-      databasePath: process.env.DATABASE_PATH || './layers/storage/databases/sql/dev.db',
-      // Add other private config here
+      secretApiKey: process.env.GITHUB_CLIENT_SECRET, // Only accessible server-side
     },
   },
-  compatibilityDate: '2024-07-12'
+  compatibilityDate: '2024-10-2',
 });

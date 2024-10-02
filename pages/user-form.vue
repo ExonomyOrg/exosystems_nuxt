@@ -132,14 +132,14 @@ const handleSubmit = async () => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ credential: token, provider, form_data }),
-            });
+            })
 
             const result = await response.json();
 
             if (result.status === 'success') {
                 console.log('User authenticated successfully');
                 // Redirect or handle success
-                window.location.href = 'http://localhost:3000';
+                window.location.href = 'https://exosystems.net';
             } else {
                 console.error('Authentication failed', result.message);
             }

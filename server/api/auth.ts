@@ -4,9 +4,6 @@ import { handleAuthCallback } from '~/layers/auth/composables/handleAuthCallback
 import { OAuth2Client } from 'google-auth-library';
 import { verifyGithubToken } from '~/layers/auth/providers/oauth/githubAuth';
 import { verifyMetaMaskToken } from '~/layers/auth/providers/oauth/metamaskAuth';
-import { googleAdapter } from '~/layers/auth/providers/adapters/google';
-import { githubAdapter } from '~/layers/auth/providers/adapters/github';
-import { metamaskAdapter } from '~/layers/auth/providers/adapters/metamask';
 // Create an OAuth2 client with the Google client ID
 const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 

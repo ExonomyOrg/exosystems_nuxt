@@ -9,12 +9,16 @@
     <nuxt-link to="/internship" class="button">Explore Opportunities</nuxt-link>
 
     <!-- Conditional Button (Login/Logout) -->
-    <button class="auth-button"
-      :style="{ backgroundColor: isLoggedIn() ? '#000' : '#007bff', color: isLoggedIn() ? '#fff' : '#fff' }"
-      @click="toggleAuthPanel">
-      {{ isLoggedIn() ? 'Logout?' : 'Login?' }}
-    </button>
+    <client-only>
+      <button v-if="!loggedIn" class="auth-button" :style="{ backgroundColor: '#007bff', color: '#fff' }"
+        @click="toggleAuthPanel">
+        Login?
+      </button>
 
+      <button v-else class="auth-button" :style="{ backgroundColor: '#000', color: '#fff' }" @click="toggleAuthPanel">
+        Logout?
+      </button>
+    </client-only>
     <!-- Background Overlay -->
     <div v-if="isPanelVisible || showLogoutPanel" class="overlay" @click="closePanel"></div>
 
@@ -32,17 +36,18 @@
         </div>
 
         <!-- GitHub Button -->
-        <div :class="{ 'active': isLoggedIn('github'), 'pressed': isLoggedIn('github') }">
-          <button v-if="!isLoggedIn('github')" @click="loginWithGitHub" class="panel-button white-button">
+        <div :class="{ 'active': isLoggedIn('github'), 'pressed': isLoggedIn('github') }"
+          :style="{ opacity: isLoggedIn('github') ? 1 : 1 }">
+
+          <button v-if="!isLoggedIn('github')" @click="loginWithGitHub" class="white-button panel-button">
             Login with GitHub
             <img src="/assets/github-logo.svg" alt="GitHub Logo" class="logo" />
           </button>
-          <button v-else @click="handleLogout('github')" class="panel-button pressed github-button">
+          <button v-else @click="handleLogout('github')" class=" panel-button pressed ">
             Logout from GitHub
             <img src="/assets/github-logo.svg" alt="GitHub Logo" class="logo" />
           </button>
         </div>
-
         <!-- MetaMask Button -->
         <div :class="{ 'active': isLoggedIn('metamask'), 'pressed': isLoggedIn('metamask') }">
           <button v-if="!isLoggedIn('metamask')" @click="loginWithMetaMask" class="panel-button white-button">
@@ -58,17 +63,33 @@
     </div>
   </div>
 </template>
-
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref, onMounted } from 'vue';
 import Navbar from '@/components/navbar.vue';
 import { GoogleSignInButton, type CredentialResponse } from "vue3-google-signin";
-import { useRouter } from 'vue-router'
-const router = useRouter();
+
 export default defineComponent({
   components: {
     Navbar,
     GoogleSignInButton,
+  },
+  setup() {
+    const { public: { githubClientId } } = useRuntimeConfig(); // Accessing public runtime config
+    const loggedIn = ref(false);
+
+    onMounted(() => {
+      // Only access localStorage on the client
+      if (process.client) {
+        loggedIn.value = !!localStorage.getItem('google_token') ||
+          !!localStorage.getItem('github_token') ||
+          !!localStorage.getItem('metamask_token');
+      }
+    });
+
+    return {
+      githubClientId,
+      loggedIn,
+    };
   },
   data() {
     return {
@@ -81,14 +102,14 @@ export default defineComponent({
       return process.client;
     },
     isLoggedIn(provider?: string): boolean {
-      if (!this.isClient()) {
-        return false;
+      // Only access localStorage on the client
+      if (this.isClient()) {
+        if (provider) {
+          return !!localStorage.getItem(`${provider}_token`);
+        }
+        return this.loggedIn; // Correctly access the value
       }
-
-      if (provider) {
-        return !!localStorage.getItem(`${provider}_token`);
-      }
-      return !!localStorage.getItem('google_token') || !!localStorage.getItem('github_token') || !!localStorage.getItem('metamask_token');
+      return false; // Default to false when not on the client
     },
     toggleAuthPanel() {
       if (this.isLoggedIn()) {
@@ -101,20 +122,21 @@ export default defineComponent({
       this.isPanelVisible = false;
       this.showLogoutPanel = false;
     },
-
     async handleLoginSuccess(response: CredentialResponse) {
       const { credential } = response;
       console.log("Access Token", credential);
-      localStorage.setItem('google_token', credential);
-      localStorage.setItem('auth_provider', 'google');
-      window.location.href = 'http://localhost:3000/user-form';
+      if (this.isClient()) { // Check if on client
+        localStorage.setItem('google_token', credential || '');
+        localStorage.setItem('auth_provider', 'google');
+      }
+      window.location.href = 'https://exosystems.net/user-form';
     },
     handleLoginError() {
       console.error("Login failed");
     },
     loginWithGitHub() {
-      const clientId = 'Ov23li5X8H4A6wPKPTuR';
-      const redirectUri = 'http://localhost:3000/auth/callback/github';
+      const clientId = this.githubClientId;
+      const redirectUri = 'https://exosystems.net/auth/callback/github';
       const scope = 'repo user';
       const authUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}`;
 
@@ -125,9 +147,10 @@ export default defineComponent({
     },
     handleLogout(provider: string) {
       if (this.isLoggedIn(provider)) {
-        if (this.isClient()) {
+        if (this.isClient()) { // Check if on client
           localStorage.removeItem(`${provider}_token`);
         }
+        this.loggedIn = false; // Correctly set the value to false
         this.closePanel();
         console.log(`${provider} logged out`);
       }
@@ -143,6 +166,8 @@ export default defineComponent({
   }
 });
 </script>
+
+
 <style scoped>
 /* General Button Styles */
 .button {
@@ -259,7 +284,7 @@ export default defineComponent({
 }
 
 .github-button {
-  background-color: #333;
+  background-color: #333 !important;
 }
 
 .metamask-button {
