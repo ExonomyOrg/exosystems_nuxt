@@ -41,7 +41,7 @@ export default defineEventHandler(async (event) => {
 });
 
 // Function to handle Google authentication
-async function handleGoogleAuth(idToken: string, form_data: any) {
+async function handleGoogleAuth(idToken: string, form_data: object) {
   const ticket = await googleClient.verifyIdToken({
     idToken,
     audience: process.env.GOOGLE_CLIENT_ID,
@@ -63,7 +63,7 @@ async function handleGoogleAuth(idToken: string, form_data: any) {
 }
 
 // Function to handle GitHub authentication
-async function handleGithubAuth(token: string, form_data: any) {
+async function handleGithubAuth(token: string, form_data: object) {
   const user1 = await verifyGithubToken(token);
   const user = {
     username: user1.name,
@@ -77,7 +77,7 @@ async function handleGithubAuth(token: string, form_data: any) {
 }
 
 // Function to handle MetaMask authentication
-async function handleMetaMaskAuth(token: string, form_data: any) {
+async function handleMetaMaskAuth(token: string, form_data: object) {
   const user = await verifyMetaMaskToken(token);
   return {
     username: user.account,

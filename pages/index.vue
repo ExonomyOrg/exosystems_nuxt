@@ -67,6 +67,7 @@
 import { defineComponent, ref, onMounted } from 'vue';
 import Navbar from '@/components/navbar.vue';
 import { GoogleSignInButton, type CredentialResponse } from "vue3-google-signin";
+import { useRuntimeConfig } from '#app';
 
 export default defineComponent({
   components: {
