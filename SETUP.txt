@@ -1,93 +1,11 @@
-The codebase contains environment variables for security reasons .
-To run this version of the website on your local machine follow the below steps:
-1.create a .env in the root of the project
-2.create variables in the below format (the values given here are just for example,this is not for use,the third step and fourth step includes how to make your own google client id and github client id)
-GOOGLE_CLIENT_ID='72780742121-4j4tl98s5d99fmmcneked3d1pdnn7p9l.apps.googleusercontent.com'
+Steps to run exosystems.net locally(http://localhost:3000):
+1.clone this branch
+2.run npm install(all libraries used are mentioned in requirements.txt)
+3.create a .env file in the root
+4.add these lines in the .env file
+GOOGLE_CLIENT_ID='685454088995-amhakachjbeuf2gfdkv1ltk74gp25bpr.apps.googleusercontent.com'
 DATABASE_PATH='./layers/storage/databases/sql/dev.db'
-GITHUB_CLIENT_ID='Ov23li5X8H4A6wPfPTuR'
-GITHUB_CLIENT_SECRET='ae1484b466d29bef57f5809611e6241d4e15e552'
-3.Creating a Google Client ID is an essential step when you want to use Google APIs or integrate Google authentication into your application. Here’s how you can create one:
-
-Step-by-Step Guide to Create a Google Client ID
-Go to the Google Cloud Console:
-
-Visit the Google Cloud Console.
-Create a New Project:
-
-Click on the Project dropdown at the top of the page.
-Select New Project.
-Enter a name for your project and select an organization if applicable.
-Click Create.
-Enable APIs:
-
-After your project is created, make sure you have it selected in the project dropdown.
-In the left sidebar, click on APIs & Services > Library.
-Search for the specific API you want to use (e.g., Google People API, Google Drive API).
-Click on the API and then click Enable.
-Create OAuth 2.0 Credentials:
-
-In the left sidebar, click on APIs & Services > Credentials.
-Click on the Create Credentials button and select OAuth client ID.
-Configure the Consent Screen:
-
-If this is your first time creating OAuth credentials, you may be prompted to configure the consent screen.
-Fill in the necessary details such as:
-App Name
-User Support Email
-Developer Contact Information
-Optionally, you can configure scopes, branding, and other settings.
-Click Save and Continue until you've completed the setup.
-Select Application Type:
-
-Choose the application type:
-Web application: For server-side applications or web apps.
-Android: For mobile applications on Android.
-iOS: For mobile applications on iOS.
-Desktop app: For desktop applications.
-Enter a name for your OAuth 2.0 client ID.
-Set Redirect URIs (for Web applications):
-
-If you selected Web application, you need to provide Authorized redirect URIs. This is where Google will redirect users after they authenticate.
-For example, if you're using http://localhost:3000/auth/callback during development, add this URI.
-Click Create.
-Obtain Your Client ID and Client Secret:
-
-After you create your credentials, you will see a screen displaying your Client ID and Client Secret.
-Make sure to copy these values and keep them safe.
-4.Creating a GitHub Client ID and Client Secret involves setting up a new OAuth application in your GitHub account. Here’s a step-by-step guide to help you through the process:
-
-Step 1: Log into GitHub
-Go to the GitHub website.
-Log in with your GitHub account credentials.
-Step 2: Navigate to Developer Settings
-In the upper-right corner of any page, click on your profile photo.
-Click on Settings.
-In the left sidebar, scroll down and click on Developer settings.
-Step 3: Create a New OAuth App
-In the left sidebar under Developer settings, click on OAuth Apps.
-Click on the New OAuth App button.
-Step 4: Fill Out the Application Details
-Application Name: Enter a name for your application.
-Homepage URL: Enter the URL of your application. This is usually the URL where users can access your application.
-Authorization callback URL: This is the URL to which users will be redirected after they authorize your application. This URL must match the one specified in your application code.
-Step 5: Register the Application
-After filling out the necessary fields, click on the Register application button.
-Step 6: Retrieve Client ID and Client Secret
-After registering your application, you will be redirected to the application’s settings page.
-Here, you can find your Client ID displayed prominently.
-To reveal your Client Secret, click on the Generate a new client secret button. Make sure to copy it and keep it secure, as it won’t be displayed again.
-Step 7: Configure Your Application
-Now that you have your Client ID and Client Secret, you can integrate them into your application to enable GitHub authentication.
-
-Important Security Notes
-Keep Your Client Secret Secure: Never expose your Client Secret in public repositories or client-side code. It should only be used server-side.
-Use Environment Variables: For better security, consider storing your Client ID and Client Secret in environment variables or a secure vault instead of hardcoding them in your application.
-5.in index.vue under pages directory change the client id to your acquired client id in the function given below
-loginWithGitHub() {
-      const clientId = 'Ov25li5X8H4A6wPKPTuR';
-      const redirectUri = 'http://localhost:3000/auth/callback/github';
-      const scope = 'repo user';
-      const authUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}`;
-
-      window.location.href = authUrl;
-    }
+GITHUB_CLIENT_ID='Ov23liTyOBIbc9qgWflD'
+GITHUB_CLIENT_SECRET='5d0e9e7070bba15aff75002d3acb88b0e32e2952'
+5.in Vs code search for all occurences of https://exosystems.net and replace it with http://localhost:3000
+6.make sure to run the website only on http://localhost:3000(only port 3000)
