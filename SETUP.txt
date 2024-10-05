@@ -1,0 +1,11 @@
+Steps to run exosystems.net locally(http://localhost:3000):
+1.clone this branch
+2.run npm install(all libraries used are mentioned in requirements.txt)
+3.create a .env file in the root
+4.add these lines in the .env file
+GOOGLE_CLIENT_ID='685454088995-amhakachjbeuf2gfdkv1ltk74gp25bpr.apps.googleusercontent.com'
+DATABASE_PATH='./layers/storage/databases/sql/dev.db'
+GITHUB_CLIENT_ID='Ov23liTyOBIbc9qgWflD'
+GITHUB_CLIENT_SECRET='5d0e9e7070bba15aff75002d3acb88b0e32e2952'
+5.in Vs code search for all occurences of https://exosystems.net and replace it with http://localhost:3000
+6.make sure to run the website only on http://localhost:3000(only port 3000)

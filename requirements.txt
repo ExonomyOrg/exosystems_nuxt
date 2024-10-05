@@ -1,0 +1,14 @@
+
+better-sqlite3
+@types/better-sqlite3
+drizzle-orm
+nuxt-vue3-google-signin
+vue3-google-signin
+axios
+pinia
+pinia-plugin-persistedstate
+web3
+did-jwt
+did-resolver
+ethr-did-resolver
+did-jwt-vc
