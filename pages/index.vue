@@ -1,7 +1,7 @@
 <template>
   <Navbar />
   <div style="margin-left: 15%; margin-top: 5%; margin-right: 15%;">
-    <h1>Welcome to ExoSystems</h1>
+    <h1>Welcome Tamir to ExoSystems</h1>
     <p>ExoSystems is a pioneering company dedicated to building innovative exo applications. Our flagship projects,
       Exonomy and Exocracy, are designed to revolutionize peer-to-peer commerce and social media autonomy.</p>
     <p>We're committed to creating a future of decentralized, sovereign interactions in both commercial and social
