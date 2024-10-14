@@ -68,7 +68,7 @@ async function handleGithubAuth(token: string, form_data: any) {
   const user = {
     username: user1.name || "not provided",
     useremail: user1.email || "not provided",
-    userid: user1.id?.toString() || "not provided",
+    userid: user1.id.toString() || "not provided",
     firstname: form_data.firstname,
     lastname: form_data.lastname,
     contactnumber: form_data.contactnumber
