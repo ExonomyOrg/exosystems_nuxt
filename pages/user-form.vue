@@ -101,7 +101,7 @@ const token = route.query.token || ''; // Get the token from the URL
 
 // Computed properties for validation
 const isContactNumberValid = computed(
-    () => form.value.contactNumber.length >= 10
+    () => form.value.contactNumber.length >= 1
 );
 const isFormValid = computed(
     () =>
